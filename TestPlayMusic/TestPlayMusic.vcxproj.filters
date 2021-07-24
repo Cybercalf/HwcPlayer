@@ -18,22 +18,22 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mediaplayer.cpp">
+    <ClCompile Include="Media.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuPage.cpp">
+    <ClCompile Include="MainPage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MediaPlayerPage.cpp">
+    <ClCompile Include="PlayerPage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PlaylistPage.cpp">
+    <ClCompile Include="ListPage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="medialinklist.cpp">
+    <ClCompile Include="List.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,22 +41,22 @@
     <ClInclude Include="main.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mediaplayer.h">
+    <ClInclude Include="Media.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuPage.h">
+    <ClInclude Include="MainPage.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MediaPlayerPage.h">
+    <ClInclude Include="PlayerPage.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PlaylistPage.h">
+    <ClInclude Include="ListPage.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="medialinklist.h">
+    <ClInclude Include="List.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

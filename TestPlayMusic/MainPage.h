@@ -4,9 +4,9 @@
 #include <conio.h>
 #include <cstdbool>
 #include <Windows.h>
-#include "MediaPlayerPage.h"
+#include "PlayerPage.h"
 #include "Time.h"
-#include "PlaylistPage.h"
+#include "ListPage.h"
 
 // 显示首页，同时承担交互等功能，可以被其他模块调用
 // 要求：

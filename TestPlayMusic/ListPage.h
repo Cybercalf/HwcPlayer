@@ -4,7 +4,7 @@
 #include <conio.h>
 #include <cstring>
 #include <cstdbool>
-#include "medialinklist.h"
+#include "List.h"
 #define CLEAR_BUF \
     {\
     int ch; \
@@ -15,7 +15,7 @@ while ((ch = getchar()) != EOF && ch != '\n')\
     }
 
 // 显示播放列表页面，同时承担交互等功能，可以被其他模块调用
-void playlistPage();
+void listPage();
 
 // 只显示播放列表界面的样子，不承担交互等功能，不可以被其他模块调用
 // 要求：
@@ -30,5 +30,5 @@ void playlistPage();
 // 播放，即进入播放器页面
 // 返回主菜单
 //
-void showPlaylistPage();
+void showListPage();
 

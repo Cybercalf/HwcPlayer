@@ -6,7 +6,7 @@
 #include <mmsystem.h>
 #include <strsafe.h>
 #include <conio.h>
-#include "mediaplayer.h"
+#include "Media.h"
 
 #pragma comment (lib,"winmm.lib")
 

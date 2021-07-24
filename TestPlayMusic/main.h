@@ -4,8 +4,8 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include <strsafe.h>
-#include "mediaplayer.h"
-#include "MainMenuPage.h"
+#include "Media.h"
+#include "MainPage.h"
 
 #pragma comment (lib,"winmm.lib")
 

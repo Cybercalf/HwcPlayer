@@ -1,4 +1,4 @@
-﻿#include "MainMenuPage.h"
+﻿#include "MainPage.h"
 using namespace std;
 
 void mainMenuPage()
@@ -22,7 +22,7 @@ void mainMenuPage()
 			break;
 		case 'L':
 		case 'l':
-			playlistPage();
+			listPage();
 			break;
 		case 'P':
 		case 'p':

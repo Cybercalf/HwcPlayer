@@ -20,20 +20,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuPage.cpp" />
-    <ClCompile Include="medialinklist.cpp" />
-    <ClCompile Include="mediaplayer.cpp" />
-    <ClCompile Include="MediaPlayerPage.cpp" />
-    <ClCompile Include="PlaylistPage.cpp" />
+    <ClCompile Include="MainPage.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="Media.cpp" />
+    <ClCompile Include="PlayerPage.cpp" />
+    <ClCompile Include="ListPage.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
-    <ClInclude Include="MainMenuPage.h" />
-    <ClInclude Include="medialinklist.h" />
-    <ClInclude Include="mediaplayer.h" />
-    <ClInclude Include="MediaPlayerPage.h" />
-    <ClInclude Include="PlaylistPage.h" />
+    <ClInclude Include="MainPage.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Media.h" />
+    <ClInclude Include="PlayerPage.h" />
+    <ClInclude Include="ListPage.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

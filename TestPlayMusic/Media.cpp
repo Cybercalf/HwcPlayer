@@ -1,4 +1,4 @@
-﻿#include "mediaplayer.h"
+﻿#include "Media.h"
 using namespace std;
 void MymciSendString(const char* szCommand, char* szbuffer)
 {

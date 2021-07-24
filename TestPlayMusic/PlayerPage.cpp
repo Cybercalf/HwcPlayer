@@ -1,4 +1,4 @@
-﻿#include "MediaPlayerPage.h"
+﻿#include "PlayerPage.h"
 
 
 using namespace std;
