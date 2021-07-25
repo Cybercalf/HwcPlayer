@@ -24,8 +24,9 @@ void listPage()
 		case '1':
 			strcpy_s(path, "");
 			printf("请输入您要添加的mp3文件的路径:\n");
-
+			CLEAR_BUF
 			scanf("%s", path);
+			CLEAR_BUF
 			switch (appendNode(g_headPtr, path))
 			{
 			case 0:

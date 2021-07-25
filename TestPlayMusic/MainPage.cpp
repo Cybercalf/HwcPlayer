@@ -10,7 +10,7 @@ void mainMenuPage()
 		while (!_kbhit())
 		{
 			showMainMenuPage();
-			Sleep(200);
+			Sleep(1000);
 		}
 		switch (_getch())
 		{
@@ -19,7 +19,7 @@ void mainMenuPage()
 			puts("程序退出，再见");
 			running = !running;
 			system("pause");
-			
+
 			break;
 		case 'L':
 		case 'l':
@@ -38,12 +38,17 @@ void mainMenuPage()
 void showMainMenuPage()
 {
 	system("cls");
-	printf("\t\t\t************************\t\t\t\n"
-	       "\t\t\t***********欢迎**********\t\t\t\n"
-	       "\t\t\t北京时间：%d时%d分%d秒\n",
+	printf("\n\n\n\n"
+	       "\t\t***************************************\t\t\n"
+	       "\t\t***************************************\t\t\n"
+	       "\t\t*************  HwcPlayer  *************\t\t\n"
+	       "\t\t***************************************\t\t\n"
+	       "\t\t***************************************\t\t\n"
+	       "\t\t**********  %d年 %d月 %d日   *********\t\t\n"
+	       "\t\t**********  %d时 %d分 %d秒  ***********\t\t\n"
+	       "\t\t***********  [L] 音乐列表  ************\t\t\n"
+	       "\t\t***********  [P] 播放界面  ************\t\t\n"
+	       "\t\t***********  [E] 退出      ************\t\t\n",
+	       getCurrentYear(), getCurrentMonth(), getCurrentDay(),
 	       getCurrentHour(), getCurrentMinute(), getCurrentSecond());
-	puts("\n\n\n"
-		"\t\t\t[L] 播放列表\n"
-		"\t\t\t[P] 播放界面\n"
-		"\t\t\t[E] 退出\n");
 }

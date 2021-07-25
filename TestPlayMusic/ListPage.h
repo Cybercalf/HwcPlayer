@@ -6,7 +6,7 @@
 #include <cstdbool>
 #include "List.h"
 
-#define DEBUG
+// #define DEBUG
 
 #define CLEAR_BUF \
     {\
