@@ -1,33 +1,22 @@
 ﻿#include "Media.h"
 using namespace std;
 
-void MymciSendString(const char* szCommand, char* szbuffer)
+// 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
+int MymciSendString(const char* szCommand, char* szbuffer)
 {
 	if (NULL == szbuffer)
 	{
-		if (0 != mciSendString(szCommand, NULL, 0, NULL))
-		{
-			printf("%s false!\n", szCommand);
-		}
-		else
-		{
-			printf("%s success!\n", szCommand);
-		}
+		if (0 != mciSendString(szCommand, NULL, 0, NULL)) return -1;
+		else return 0;
 	}
 	else
 	{
-		if (0 != mciSendString(szCommand, szbuffer, 1024, NULL))
-		{
-			printf("%s false!\n", szCommand);
-		}
-		else
-		{
-			printf("%s success!\n", szCommand);
-		}
+		if (0 != mciSendString(szCommand, szbuffer, 1024, NULL)) return -2;
+		else return 0;
 	}
 }
 
-int openMusic(char* path)
+int openMusic(const char* path)
 {
 	if (path != NULL)
 	{
@@ -35,11 +24,49 @@ int openMusic(char* path)
 		strcpy_s(cmd, "open ");
 		strcat_s(cmd, path);
 		strcat_s(cmd, " alias BackMusic");
-		// printf("%s\n", cmd);
-		MymciSendString(
-			cmd,
-			NULL);
-		return 0;
+		printf("cmd: %s\n", cmd);
+		return MymciSendString(cmd, NULL);
 	}
 	return -1;
+}
+
+int closeMusic()
+{
+	char cmd[1000] = "close BackMusic";
+	return MymciSendString(cmd, NULL);
+}
+
+int playMusic()
+{
+	char cmd[1000] = "play BackMusic";
+	return MymciSendString(cmd, NULL);
+	
+}
+
+int playMusicRepeat()
+{
+	char cmd[1000] = "play BackMusic repeat";
+	return MymciSendString(cmd, NULL);
+
+}
+
+int stopMusic()
+{
+	char cmd[1000] = "stop BackMusic";
+	return MymciSendString(cmd, NULL);
+
+}
+
+int pauseMusic()
+{
+	char cmd[1000] = "pause BackMusic";
+	return MymciSendString(cmd, NULL);
+
+}
+
+int resumeMusic()
+{
+	char cmd[1000] = "resume BackMusic";
+	return MymciSendString(cmd, NULL);
+
 }

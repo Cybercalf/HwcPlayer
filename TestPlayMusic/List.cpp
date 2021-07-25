@@ -1,6 +1,6 @@
 ﻿#include "List.h"
 
-Media* createMedia(char* path)
+Media* createMedia(const char* path)
 {
 	struct _finddata_t* musicInfo = (struct _finddata_t*)malloc(sizeof(struct _finddata_t));
 	long handle = _findfirst(path, musicInfo);
@@ -38,7 +38,7 @@ Media* createMedia(char* path)
 	}
 }
 
-MediaNodePtr createNode(char* path)
+MediaNodePtr createNode(const char* path)
 {
 	MediaNodePtr newNodePtr = (MediaNodePtr)malloc(sizeof(MediaNode));
 	Media* tempMediaPtr = createMedia(path);
@@ -69,11 +69,10 @@ int isListEmpty(MediaNodePtr startPtr)
 	return startPtr->next == NULL;
 }
 
-char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
+const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 {
 	if (number <= 0) return NULL;
-	// char* tempPath = (char*)malloc(sizeof(char) * PATH_LENGTH);
-	char tempPath[PATH_LENGTH] = "";
+	char* tempPath = (char*)malloc(sizeof(char) * PATH_LENGTH);
 	memset(tempPath, '\0', sizeof(tempPath));
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
@@ -82,17 +81,17 @@ char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 		pMove = pMove->next;
 	}
 	// 如果没找到
-	if (pMove == NULL) return NULL;
+	if (pMove == NULL) return "\0";
 		// 如果找到了
 	else
 	{
-		strcpy_s(tempPath, pMove->media.path);
+		strcpy_s(tempPath, sizeof(char)*PATH_LENGTH, pMove->media.path);
 	}
-	return tempPath;
+	return (const char *)tempPath;
 }
 
 
-int appendNode(MediaNodePtr& startPtr, char* path)
+int appendNode(MediaNodePtr& startPtr, const char* path)
 {
 	// 先创建一个新的节点，以便追加到链表中
 	MediaNodePtr newPtr = createNode(path);

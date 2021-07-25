@@ -32,10 +32,10 @@ typedef struct medianode MediaNode;
 typedef MediaNode* MediaNodePtr;
 
 // 根据文件路径创建一个Media结构体，返回它的地址
-Media* createMedia(char* path);
+Media* createMedia(const char* path);
 
 // 根据文件路径创建一个节点，返回它的地址
-MediaNodePtr createNode(char* path);
+MediaNodePtr createNode(const char* path);
 
 // 创建一个空链表，返回这个链表的地址
 // 请注意，虽然返回的地址理论上指向一个节点，但是这个节点不存储任何媒体信息，只有其中的next有意义
@@ -47,11 +47,11 @@ MediaNodePtr createList();
 int isListEmpty(MediaNodePtr startPtr);
 
 // 接收一个节点编号，返回对应节点的路径
-char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number);
+const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number);
 
 // 根据文件位置生成一个Media结构体和与之对应的节点，把它添加到链表末尾
 // return 0 if success, not 0 if fail
-int appendNode(MediaNodePtr& startPtr, char* path);
+int appendNode(MediaNodePtr& startPtr, const char* path);
 
 // 根据编号删除一个链表的节点
 // return 0 if success, not 0 if fail

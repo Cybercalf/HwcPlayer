@@ -16,6 +16,26 @@ while ((ch = getchar()) != EOF && ch != '\n')\
         }\
     }
 
-void MymciSendString(const char* szCommand, char* szbuffer);
+// 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
+int MymciSendString(const char* szCommand, char* szbuffer);
 
-int openMusic(char* path);
+// 调用MCI接口打开文件，成功返回0，不成功返回非0
+int openMusic(const char* path);
+
+int closeMusic();
+
+int playMusic();
+
+int playMusicRepeat();
+
+int stopMusic();
+
+int pauseMusic();
+
+int resumeMusic();
+
+int statusMusicPosition();
+
+int seekToPosition();
+
+int viewPlaybackStatus();

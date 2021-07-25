@@ -15,9 +15,11 @@ void listPage()
 
 
 
+	
 	int exit = 0; // 页面退出的标志
 	int num = 0; // 用户输入的节点编号
 	char path[PATH_LENGTH] = "";
+	
 	while (!exit)
 	{
 		showListPage();
@@ -74,9 +76,6 @@ void listPage()
 void showListPage()
 {
 	system("cls");
-#ifdef DEBUG
-	printf("g_headPtr: %p\n", g_headPtr);
-#endif
 	puts("这里是播放列表页面！\n"
 		"1. 为链表中添加一个节点\n"
 		"2. 打印链表节点\n"

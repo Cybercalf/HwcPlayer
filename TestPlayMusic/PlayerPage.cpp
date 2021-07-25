@@ -6,18 +6,22 @@ using namespace std;
 
 void mediaPlayerPage()
 {
-	int icommand = -1;
+
+#ifdef DEBUG
+	appendNode(g_headPtr, "C:\\Users\\Cybercalf\\Music\\_menuLoop.mp3");
+#endif
+	
 	// 结束程序的标志
-	int bflag = 1;
+	int exit = 0;
 	char szTimeBuffer[1024];
 	char szModeBuffer[1024];
 	char szCommandBuffer[1024];
 
-	while (bflag)
+	// const char* debugStr;
+
+	while (exit == 0)
 	{
 		showMediaPlayerMenu();
-		// scanf_s("%d", &icommand);
-		// CLEAR_BUF
 		switch (_getch())
 		{
 		case '1':
@@ -25,60 +29,55 @@ void mediaPlayerPage()
 			int number;
 			scanf("%d", &number);
 			CLEAR_BUF
-#ifdef DEBUG
-			printf("NodePath: %s\n", getNodePathByNumber(g_headPtr, number));
-#endif
-			// openMusic(getNodePathByNumber(g_headPtr, number));
+			openMusic(getNodePathByNumber(g_headPtr, number));
 			break;
 
 		case '2':
-			MymciSendString("close BackMusic", NULL);
+			closeMusic();
 			break;
 
 		case '3':
-			MymciSendString("play BackMusic", NULL);
-			break;
-
-		case 33:
-			MymciSendString("play BackMusic repeat", NULL);
+			playMusic();
 			break;
 
 		case '4':
-			MymciSendString("stop BackMusic", NULL);
+			playMusicRepeat();
 			break;
 
 		case '5':
-			MymciSendString("pause BackMusic", NULL);
+			stopMusic();
 			break;
 
 		case '6':
-			MymciSendString("resume BackMusic", NULL);
+			pauseMusic();
 			break;
 
 		case '7':
+			resumeMusic();
+			break;
+
+		case 'i':
 			MymciSendString("status BackMusic position", szTimeBuffer);
 			break;
 
-		case '8':
+		case 'o':
 			StringCchPrintf(szCommandBuffer, sizeof(szCommandBuffer) - 1, "seek BackMusic to %s", szTimeBuffer);
 			MymciSendString(szCommandBuffer, NULL);
 			break;
 
-		case '9':
+		case 'p':
 			MymciSendString("status BackMusic mode", szModeBuffer);
 			printf("%s", szModeBuffer);
 			break;
 
 		case '0':
-			bflag = 0;
+			exit = 1;
 			break;
 
 		default:
 			break;
 		}
 
-		printf("\n");
-		system("pause");
 	}
 }
 
@@ -86,20 +85,17 @@ void mediaPlayerPage()
 void showMediaPlayerMenu()
 {
 	system("cls");
-#ifdef DEBUG
-	printf("g_headPtr: %p\n", g_headPtr);
-#endif
-	printf("1.open music\n");
-	printf("2.close music\n");
-	printf("3.play music\n");
-	printf("33.play music repeat\n");
-	printf("4.stop music\n");
-	printf("5.pause music\n");
-	printf("6.resume music\n");
-	printf("7.status music position\n");
-	printf("8.seek to position\n");
-	printf("9.view playback status\n");
-
-	printf("0.out\n");
-	printf("Enter Your Choice:\n");
+	puts("播放界面\n"
+		"1. open music\n"
+		"2. close music\n"
+		"3. play music\n"
+		"4. play music repeat\n"
+		"5. stop music\n"
+		"6. pause music\n"
+		"7. resume music\n"
+		"i. status music position\n"
+		"o. seek music\n"
+		"p. status music mode\n"
+		"0. exit\n"
+	);
 }
