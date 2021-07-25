@@ -14,6 +14,8 @@ while ((ch = getchar()) != EOF && ch != '\n')\
         }\
     }
 
+
+
 // 显示播放列表页面，同时承担交互等功能，可以被其他模块调用
 void listPage();
 
