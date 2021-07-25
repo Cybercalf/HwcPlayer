@@ -1,4 +1,5 @@
 ﻿#include "PlayerPage.h"
+#include "ListPage.h"
 
 
 using namespace std;
@@ -20,9 +21,14 @@ void mediaPlayerPage()
 		switch (_getch())
 		{
 		case '1':
-			MymciSendString(
-				"open C:\\Users\\Cybercalf\\Music\\WorldChase-OST.mp3 alias BackMusic",
-				NULL);
+			printf("input number: ");
+			int number;
+			scanf("%d", &number);
+			CLEAR_BUF
+#ifdef DEBUG
+			printf("NodePath: %s\n", getNodePathByNumber(g_headPtr, number));
+#endif
+			// openMusic(getNodePathByNumber(g_headPtr, number));
 			break;
 
 		case '2':
@@ -80,6 +86,9 @@ void mediaPlayerPage()
 void showMediaPlayerMenu()
 {
 	system("cls");
+#ifdef DEBUG
+	printf("g_headPtr: %p\n", g_headPtr);
+#endif
 	printf("1.open music\n");
 	printf("2.close music\n");
 	printf("3.play music\n");

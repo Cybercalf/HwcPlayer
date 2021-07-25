@@ -5,6 +5,9 @@
 #include <cstring>
 #include <cstdbool>
 #include "List.h"
+
+#define DEBUG
+
 #define CLEAR_BUF \
     {\
     int ch; \
@@ -14,7 +17,7 @@ while ((ch = getchar()) != EOF && ch != '\n')\
         }\
     }
 
-
+extern MediaNodePtr g_headPtr;
 
 // 显示播放列表页面，同时承担交互等功能，可以被其他模块调用
 void listPage();

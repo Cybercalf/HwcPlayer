@@ -7,6 +7,8 @@
 #include <strsafe.h>
 #include <conio.h>
 #include "Media.h"
+#include "List.h"
+#include "ListPage.h"
 
 #pragma comment (lib,"winmm.lib")
 

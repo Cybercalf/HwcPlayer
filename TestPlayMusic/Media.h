@@ -17,3 +17,5 @@ while ((ch = getchar()) != EOF && ch != '\n')\
     }
 
 void MymciSendString(const char* szCommand, char* szbuffer);
+
+int openMusic(char* path);

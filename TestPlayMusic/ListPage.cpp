@@ -12,9 +12,12 @@ MediaNodePtr g_headPtr = createList();
 
 void listPage()
 {
+
+
+
 	int exit = 0; // 页面退出的标志
-	char path[200] = ""; // 用户输入的文件路径
 	int num = 0; // 用户输入的节点编号
+	char path[PATH_LENGTH] = "";
 	while (!exit)
 	{
 		showListPage();
@@ -25,22 +28,33 @@ void listPage()
 			printf("请输入您要添加的mp3文件的路径:\n");
 
 			scanf("%s", path);
-			if (appendNode(g_headPtr, path) != -1)
+			switch (appendNode(g_headPtr, path))
 			{
-				printf("添加成功\n");
-			}
-			else
-			{
-				printf("添加失败\n");
+			case 0:
+				puts("添加成功");
+				break;
+			case -1:
+				puts("新建节点失败");
+				break;
+			case -2:
+				puts("列表中已有该曲目，不能重复添加");
+				break;
 			}
 			system("pause");
+
 			break;
 		case '2': // print
 			printList(g_headPtr);
-			
+
 			system("pause");
 			break;
-		case '3': // swap
+		case '3':
+			printf("input number: ");
+			int number;
+			scanf("%d", &number);
+			CLEAR_BUF
+			strcpy_s(path, getNodePathByNumber(g_headPtr, number));
+			printf("%s\n", path);
 			system("pause");
 			break;
 		case '4':
@@ -51,7 +65,7 @@ void listPage()
 		default:
 			puts("invalid choice.");
 			system("pause");
-			
+
 			break;
 		}
 	}
@@ -60,9 +74,13 @@ void listPage()
 void showListPage()
 {
 	system("cls");
+#ifdef DEBUG
+	printf("g_headPtr: %p\n", g_headPtr);
+#endif
 	puts("这里是播放列表页面！\n"
 		"1. 为链表中添加一个节点\n"
 		"2. 打印链表节点\n"
+		"3. 根据编号输出一个节点的路径\n"
 		"4. exit"
 	);
 }
