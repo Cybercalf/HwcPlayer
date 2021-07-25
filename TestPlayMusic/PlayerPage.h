@@ -32,3 +32,6 @@ void mediaPlayerPage();
 // 播放列表
 //
 void showMediaPlayerMenu();
+
+// 根据当前播放时间和音乐总时间，得到一个进度条字符串
+const char* progressBar(int nowTime, int musicTime);

@@ -40,33 +40,43 @@ int playMusic()
 {
 	char cmd[1000] = "play BackMusic";
 	return MymciSendString(cmd, NULL);
-	
 }
 
 int playMusicRepeat()
 {
 	char cmd[1000] = "play BackMusic repeat";
 	return MymciSendString(cmd, NULL);
-
 }
 
 int stopMusic()
 {
 	char cmd[1000] = "stop BackMusic";
 	return MymciSendString(cmd, NULL);
-
 }
 
 int pauseMusic()
 {
 	char cmd[1000] = "pause BackMusic";
 	return MymciSendString(cmd, NULL);
-
 }
 
 int resumeMusic()
 {
 	char cmd[1000] = "resume BackMusic";
 	return MymciSendString(cmd, NULL);
-
 }
+
+int getMusicCurrentPosition()
+{
+	char szTimeBuffer[1024];
+	MymciSendString("status BackMusic position", szTimeBuffer);
+	return atoi(szTimeBuffer);
+}
+
+int getMusicLength()
+{
+	char szTimeBuffer[1024];
+	MymciSendString("status BackMusic length", szTimeBuffer);
+	return atoi(szTimeBuffer);
+}
+

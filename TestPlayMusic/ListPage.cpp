@@ -12,14 +12,10 @@ MediaNodePtr g_headPtr = createList();
 
 void listPage()
 {
-
-
-
-	
 	int exit = 0; // 页面退出的标志
 	int num = 0; // 用户输入的节点编号
 	char path[PATH_LENGTH] = "";
-	
+
 	while (!exit)
 	{
 		showListPage();
@@ -83,3 +79,4 @@ void showListPage()
 		"4. exit"
 	);
 }
+

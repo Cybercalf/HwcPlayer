@@ -1,16 +1,16 @@
 ﻿#include "PlayerPage.h"
 #include "ListPage.h"
 
-
 using namespace std;
+
+char* progressBarStr = (char*)malloc(sizeof(char) * 51);
 
 void mediaPlayerPage()
 {
-
 #ifdef DEBUG
 	appendNode(g_headPtr, "C:\\Users\\Cybercalf\\Music\\_menuLoop.mp3");
 #endif
-	
+
 	// 结束程序的标志
 	int exit = 0;
 	char szTimeBuffer[1024];
@@ -21,7 +21,12 @@ void mediaPlayerPage()
 
 	while (exit == 0)
 	{
-		showMediaPlayerMenu();
+		while (!_kbhit())
+		{
+			showMediaPlayerMenu();
+			Sleep(200);
+		}
+
 		switch (_getch())
 		{
 		case '1':
@@ -55,11 +60,6 @@ void mediaPlayerPage()
 		case '7':
 			resumeMusic();
 			break;
-
-		case 'i':
-			MymciSendString("status BackMusic position", szTimeBuffer);
-			break;
-
 		case 'o':
 			StringCchPrintf(szCommandBuffer, sizeof(szCommandBuffer) - 1, "seek BackMusic to %s", szTimeBuffer);
 			MymciSendString(szCommandBuffer, NULL);
@@ -69,7 +69,6 @@ void mediaPlayerPage()
 			MymciSendString("status BackMusic mode", szModeBuffer);
 			printf("%s", szModeBuffer);
 			break;
-
 		case '0':
 			exit = 1;
 			break;
@@ -77,7 +76,6 @@ void mediaPlayerPage()
 		default:
 			break;
 		}
-
 	}
 }
 
@@ -98,4 +96,33 @@ void showMediaPlayerMenu()
 		"p. status music mode\n"
 		"0. exit\n"
 	);
+	int musicCurrentPosition = getMusicCurrentPosition();
+	int musicLength = getMusicLength();
+	printf("%d  %50s  %d\n",
+	       musicCurrentPosition,
+	       progressBar(musicCurrentPosition, musicLength),
+	       musicLength);
+}
+
+const char* progressBar(int nowTime, int musicTime)
+{
+	for (int i = 0; i < 50; i++)
+	{
+		progressBarStr[i] = '-';
+	}
+	progressBarStr[50] = '\0';
+
+	int percentage; // 播放进度百分比
+	if (musicTime == 0) // 如果总时长为0
+	{
+		percentage = 0;
+	}
+	else // 如果总时长不为0
+	{
+		percentage = 50 * nowTime / musicTime;
+	}
+
+	for (int i = 0; i < percentage; i++)progressBarStr[i] = '*';
+
+	return (const char*)progressBarStr;
 }
