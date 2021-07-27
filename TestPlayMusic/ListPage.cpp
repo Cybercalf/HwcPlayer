@@ -1,12 +1,7 @@
 ﻿#include "ListPage.h"
 using namespace std;
 
-enum STATUS
-{
-	STATUS_STOP = 0,
-	STATUS_PLAY,
-	STATUS_PAUSE,
-}; //用枚举变量限制状态的变化范围
+
 
 MediaNodePtr g_headPtr = createList();
 
@@ -24,7 +19,6 @@ void listPage()
 		case '1':
 			strcpy_s(path, "");
 			printf("请输入您要添加的mp3文件的路径:\n");
-			CLEAR_BUF
 			scanf("%s", path);
 			CLEAR_BUF
 			switch (appendNode(g_headPtr, path))
@@ -47,24 +41,24 @@ void listPage()
 
 			system("pause");
 			break;
-		case '3':
-			printf("input number: ");
-			int number;
-			scanf("%d", &number);
-			CLEAR_BUF
-			strcpy_s(path, getNodePathByNumber(g_headPtr, number));
-			printf("%s\n", path);
-			system("pause");
-			break;
 		case '4':
-			printf("%s", "即将退出此界面!\n");
-			system("pause");
 			exit = 1;
 			break;
+		case '5':
+			printf("%s", "删除编号：");
+			scanf("%d", &num);
+			switch (deleteNode(g_headPtr, num))
+			{
+			case 0:
+				puts("删除成功");
+				system("pause");
+				break;
+			default:
+				puts("删除不成功");
+				system("pause");
+				break;
+			}
 		default:
-			puts("invalid choice.");
-			system("pause");
-
 			break;
 		}
 	}
@@ -76,8 +70,7 @@ void showListPage()
 	puts("这里是播放列表页面！\n"
 		"1. 为链表中添加一个节点\n"
 		"2. 打印链表节点\n"
-		"3. 根据编号输出一个节点的路径\n"
+		"5. 删除一个节点\n"
 		"4. exit"
 	);
 }
-

@@ -34,3 +34,11 @@ void mediaPlayerPage();
 void showMediaPlayerMenu();
 
 void printProcessBar(int nowTime, int musicTime);
+
+void printStatus(char *szModeBuf);
+
+void loadProcessBar(int nowTime, int musicTime);
+
+void loadStatus();
+
+void loadPlayStatus();

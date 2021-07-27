@@ -48,8 +48,10 @@ MediaNodePtr createNode(const char* path)
 	if (tempMediaPtr != NULL && newNodePtr != NULL)
 	{
 		newNodePtr->media = *tempMediaPtr; // 把Media信息传给新建的节点
+		return newNodePtr;
 	}
-	return newNodePtr;
+	else return NULL;
+	
 }
 
 MediaNodePtr createList()
@@ -76,7 +78,7 @@ const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 	memset(tempPath, '\0', sizeof(tempPath));
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
-	while (pMove!=NULL && pMove->number != number)
+	while (pMove != NULL && pMove->number != number)
 	{
 		pMove = pMove->next;
 	}
@@ -85,11 +87,27 @@ const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 		// 如果找到了
 	else
 	{
-		strcpy_s(tempPath, sizeof(char)*PATH_LENGTH, pMove->media.path);
+		strcpy_s(tempPath, sizeof(char) * PATH_LENGTH, pMove->media.path);
 	}
-	return (const char *)tempPath;
+	return (const char*)tempPath;
 }
 
+unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char* path)
+{
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && strcmp(path, pMove->media.path) != 0)
+	{
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL) return 0;
+		// 如果找到了
+	else
+	{
+		return pMove->number;
+	}
+}
 
 int appendNode(MediaNodePtr& startPtr, const char* path)
 {
@@ -105,16 +123,20 @@ int appendNode(MediaNodePtr& startPtr, const char* path)
 	{
 		// 寻找链表之前的节点中有没有与新建节点相同的节点
 		MediaNodePtr searchPMove = startPtr->next;
-		while(searchPMove!=NULL)
+		while (searchPMove != NULL)
 		{
 			// 如果找到，那么新建的节点不能插入
-			if(strcmp(searchPMove->media.path, path)==0)
+			if (strcmp(searchPMove->media.path, path) == 0)
 			{
 				free(newPtr);
 				return -2;
 			}
+			else
+			{
+				searchPMove = searchPMove->next;
+			}
 		}
-		
+
 		MediaNodePtr pMoveFront = NULL;
 		MediaNodePtr pMove = startPtr; // 现在pMove指向的是链表的头，里面没有媒体信息，需要不断向后移动来找到链表的末尾
 		while (pMove != NULL)
@@ -125,6 +147,38 @@ int appendNode(MediaNodePtr& startPtr, const char* path)
 		// 经过移动两个指针，已经找到了链表的末尾，此时pMove是NULL，pMoveFront指向链表中的最后一个节点
 		pMoveFront->next = newPtr; // 让链表原先的最后一个节点连接新建的节点，从而把新建的节点追加到链表的尾部
 		newPtr->number = pMoveFront->number + 1; // 新建节点的编号比它上一个节点的编号要大1
+		return 0;
+	}
+}
+
+// 根据编号删除一个链表的节点
+// return 0 if success, not 0 if fail
+int deleteNode(MediaNodePtr& startPtr, unsigned int num)
+{
+	if (num <= 0) return -1;
+	MediaNodePtr pMoveFront = startPtr;
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && pMove->number != num)
+	{
+		pMoveFront = pMove;
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL) return -1;
+		// 如果找到了
+	else
+	{
+		pMoveFront->next = pMove->next; // 让节点脱节
+		free(pMove);
+		// 让后续节点的编号改变
+		pMove = pMoveFront->next;
+		while (pMove != NULL)
+		{
+			pMove->number = pMoveFront->number + 1;
+			pMoveFront = pMove;
+			pMove = pMove->next;
+		}
 		return 0;
 	}
 }
@@ -159,6 +213,21 @@ void printList(MediaNodePtr& startPtr)
 	}
 }
 
+unsigned int getLength(MediaNodePtr startPtr)
+{
+	if (startPtr == NULL) return 0;
+	else
+	{
+		MediaNodePtr pMoveFront = startPtr;
+		MediaNodePtr pMove = startPtr->next;
+		while (pMove != NULL)
+		{
+			pMoveFront = pMove;
+			pMove = pMove->next;
+		}
+		return pMoveFront->number;
+	}
+}
 
 // int appendMediaNode(MediaNodePtr* sPtr, Media value)
 // {

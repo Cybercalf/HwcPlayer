@@ -49,6 +49,9 @@ int isListEmpty(MediaNodePtr startPtr);
 // 接收一个节点编号，返回对应节点的路径
 const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number);
 
+// 接收一个节点路径，返回对应节点的编号
+unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char* path);
+
 // 根据文件位置生成一个Media结构体和与之对应的节点，把它添加到链表末尾
 // return 0 if success, not 0 if fail
 int appendNode(MediaNodePtr& startPtr, const char* path);
@@ -62,6 +65,9 @@ void clearList(MediaNodePtr& startPtr);
 
 // 打印以传入地址为首的链表的每个节点
 void printList(MediaNodePtr& startPtr);
+
+// 返回链表长度
+unsigned int getLength(MediaNodePtr startPtr);
 
 #endif
 
