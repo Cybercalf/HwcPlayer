@@ -4,6 +4,8 @@ using namespace std;
 
 void mainMenuPage()
 {
+	readList(FILE_NAME, g_headPtr);
+	
 	bool running = true;
 	while (running)
 	{

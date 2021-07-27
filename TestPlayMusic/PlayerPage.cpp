@@ -7,6 +7,7 @@ enum PLAY_STATUS
 {
 	STATUS_PLAY_SEQUENCE = 0,
 	STATUS_PLAY_REPEAT,
+	STATUS_PLAY_RANDOM,
 };
 
 enum STATUS
@@ -41,8 +42,8 @@ void mediaPlayerPage()
 		while (!_kbhit())
 		{
 			showMediaPlayerMenu();
-			if (status == STATUS_STOPPED && play_status == STATUS_PLAY_SEQUENCE && getMusicCurrentPosition() ==
-				getMusicLength())
+			if (status == STATUS_STOPPED &&
+				getMusicCurrentPosition() == getMusicLength())
 			{
 				playMusicDown();
 			}
@@ -70,36 +71,50 @@ void mediaPlayerPage()
 			break;
 
 		case '2':
-			if (play_status == STATUS_PLAY_SEQUENCE)
+			switch (play_status)
 			{
-				playMusicRepeat();
+			case STATUS_PLAY_SEQUENCE:
 				play_status = STATUS_PLAY_REPEAT;
-			}
-			else if (play_status == STATUS_PLAY_REPEAT)
-			{
-				playMusic();
+				break;
+			case STATUS_PLAY_REPEAT:
+				play_status = STATUS_PLAY_RANDOM;
+				break;
+			case STATUS_PLAY_RANDOM:
 				play_status = STATUS_PLAY_SEQUENCE;
+				break;
 			}
 			break;
 		case '3':
 			printList(g_headPtr);
 			printf("%s\n", "请输入你想跳转的音乐编号：");
 			scanf("%u", &number);
-			stopMusic();
-			closeMusic();
-			openMusic(getNodePathByNumber(g_headPtr, number));
-			playMusic();
-			break;
-			// case 'o':
-			// 	StringCchPrintf(szCommandBuffer, sizeof(szCommandBuffer) - 1, "seek BackMusic to %s", szTimeBuffer);
-			// 	MymciSendString(szCommandBuffer, NULL);
-			// 	break;
+			CLEAR_BUF
+			if (number >= 1 && number <= getLength(g_headPtr))
+			{
+				closeMusic();
+				openMusic(getNodePathByNumber(g_headPtr, number));
+				playMusic();
+			}
+			else
+			{
+				puts("打开失败，请检查编号填写是否正确");
+			}
 
+			break;
 		case 'j':
+		case 'J':
 			playMusicUp();
 			break;
 		case 'k':
+		case 'K':
 			playMusicDown();
+			break;
+		case 'u':
+		case 'U':
+			break;
+		case 'i':
+		case 'I':
+			stepForward10Sec();
 			break;
 		case '0':
 			exit = 1;
@@ -134,6 +149,8 @@ void showMediaPlayerMenu()
 	       "\t\t              - 3 -  跳转到\n"
 	       "\t\t              - J -  上一曲\n"
 	       "\t\t              - K -  下一曲\n"
+		   "\t\t              - U -  快退10秒\n"
+		   "\t\t              - I -  快进10秒\n"
 	       "\t\t              - 0 -  返回主菜单\n"
 	       "\n"
 	       , totalBarStr);
@@ -191,6 +208,9 @@ void loadPlayStatus()
 	case STATUS_PLAY_REPEAT:
 		sprintf(szPlayModeBuffer, "%s", "单曲循环");
 		break;
+	case STATUS_PLAY_RANDOM:
+		sprintf(szPlayModeBuffer, "%s", "随机播放");
+		break;
 	default:
 		break;
 	}
@@ -213,7 +233,26 @@ void playMusicUp()
 void playMusicDown()
 {
 	closeMusic();
-	number += 1;
-	if (number > getLength(g_headPtr)) number = 1;
-	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+	switch (play_status)
+	{
+	case STATUS_PLAY_SEQUENCE:
+		number += 1;
+		if (number > getLength(g_headPtr)) number = 1;
+		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+		break;
+	case STATUS_PLAY_REPEAT:
+		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusicRepeat();
+		break;
+	case STATUS_PLAY_RANDOM:
+		srand(time(0));
+		number = rand() % getLength(g_headPtr) + 1;
+		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+	}
+}
+
+void stepForward10Sec()
+{
+	int jumpTime = getMusicCurrentPosition() + 10000;
+	if (jumpTime > getMusicLength()) jumpTime = getMusicLength();
+	seekToPosition(jumpTime);
 }

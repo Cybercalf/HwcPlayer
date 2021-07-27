@@ -71,5 +71,6 @@ unsigned int getLength(MediaNodePtr startPtr);
 
 // 根据编号返回节点的音乐名称
 const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num);
+
 #endif
 

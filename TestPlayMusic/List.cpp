@@ -210,6 +210,13 @@ int deleteNode(MediaNodePtr& startPtr, unsigned int num)
 	}
 }
 
+void clearList(MediaNodePtr& startPtr)
+{
+	if (isListEmpty(startPtr)) return;
+	while (0 == deleteNode(startPtr, 1));
+	return;
+}
+
 void printList(MediaNodePtr& startPtr)
 {
 	if (isListEmpty(startPtr))
@@ -218,7 +225,6 @@ void printList(MediaNodePtr& startPtr)
 	}
 	else
 	{
-		system("cls");
 		printf("%-8s%-20s%-10s%-40s\n", "编号", "歌名", "时长", "路径");
 		// 打印要从第一个有意义的节点开始，链表的头不存储媒体信息，所以打印要从头后面连接的第一个节点开始
 		MediaNodePtr pMove = startPtr->next;

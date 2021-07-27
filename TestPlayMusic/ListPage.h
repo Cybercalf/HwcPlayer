@@ -11,6 +11,7 @@
 #include <vector>
 #include "shlobj.h"
 #include <STRING>
+#include "File.h"
 
 // #define DEBUG
 
@@ -45,4 +46,4 @@ void showListPage();
 
 bool GetFolder(std::string& folderpath, const char* szCaption, HWND hOwner);
 
-int loadPathInFolder();
+int loadPathInFolder(MediaNodePtr sPtr);

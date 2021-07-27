@@ -49,3 +49,8 @@ void loadMediaName();
 void playMusicUp();
 
 void playMusicDown();
+
+void stepForward10Sec();
+
+void stepBackward10Sec();
+

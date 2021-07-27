@@ -2,6 +2,8 @@
 using namespace std;
 
 MediaNodePtr g_headPtr = createList();
+MediaNodePtr g_temp_headPtr = createList();
+
 char szPathBuffer[1024];
 
 void listPage()
@@ -16,24 +18,37 @@ void listPage()
 		switch (_getch())
 		{
 		case '1':
-			strcpy_s(path, "");
-			printf("请输入您要添加的mp3文件的路径:\n");
-			scanf("%s", path);
-			CLEAR_BUF
-			switch (appendNode(g_headPtr, path))
+			if (loadPathInFolder(g_temp_headPtr) == 0)
+			{
+				printList(g_temp_headPtr);
+				printf("%s", "输入你想添加的音乐编号：");
+				scanf("%d", &num);
+				CLEAR_BUF
+				if (0 == appendNode(g_headPtr, getNodePathByNumber(g_temp_headPtr, num)))
+				{
+					puts("添加成功");
+				}
+				else
+				{
+					puts("添加失败");
+				}
+				clearList(g_temp_headPtr);
+				system("pause");
+			}
+
+			break;
+		case '6':
+			switch (loadPathInFolder(g_headPtr))
 			{
 			case 0:
-				puts("添加成功");
+				puts("读取成功");
+				system("pause");
 				break;
-			case -1:
-				puts("新建节点失败");
-				break;
-			case -2:
-				puts("列表中已有该曲目，不能重复添加");
+			default:
+				puts("读取失败");
+				system("pause");
 				break;
 			}
-			system("pause");
-
 			break;
 		case '2': // print
 			printList(g_headPtr);
@@ -41,35 +56,29 @@ void listPage()
 			system("pause");
 			break;
 		case '4':
+			storeList(FILE_NAME, g_headPtr);
 			exit = 1;
 			break;
 		case '5':
-			printf("%s", "删除编号：");
+			printList(g_headPtr);
+			printf("%s", "请输入你想要删除的文件编号：");
 			scanf("%d", &num);
-			switch (deleteNode(g_headPtr, num))
+			CLEAR_BUF
+			if(0==deleteNode(g_headPtr, num))
 			{
-			case 0:
 				puts("删除成功");
-				system("pause");
-				break;
-			default:
-				puts("删除不成功");
-				system("pause");
-				break;
 			}
-
-		case '6':
-			switch (loadPathInFolder())
+			else
 			{
-			case 0:
-				puts("成功啦！");
-				system("pause");
-				break;
-			default:
-				puts("失败了！");
-				system("pause");
-				break;
+				puts("删除失败，请检查编号是否填写正确");
 			}
+			system("pause");
+			break;
+		case '7':
+			clearList(g_headPtr);
+			puts("请检查链表是否清空");
+			system("pause");
+			break;
 		default:
 			break;
 		}
@@ -80,13 +89,15 @@ void showListPage()
 {
 	system("cls");
 	puts("这里是播放列表页面！\n"
-		"1. 为链表中添加一个节点\n"
+		"1. 从选择的文件夹中添加一个文件到播放列表\n"
+		"6. 导入一个文件夹下的音乐文件\n"
 		"2. 打印链表节点\n"
 		"5. 删除一个节点\n"
-		"6. 导入文件夹下的音乐文件\n"
+		"7. 清空节点\n"
 		"4. exit"
 	);
 }
+
 
 // Function name    : GetFolder
 // Description      : Open and get Folder Dialog.
@@ -132,7 +143,7 @@ bool GetFolder(std::string& folderpath, const char* szCaption, HWND hOwner)
 	return retVal;
 }
 
-int loadPathInFolder()
+int loadPathInFolder(MediaNodePtr sPtr)
 {
 	long handle; //用于查找的句柄
 	std::string szPath("");
@@ -146,20 +157,19 @@ int loadPathInFolder()
 		const char* to_search = strcat(cc, "\\*");
 		struct _finddata_t fileinfo; //文件信息的结构体
 		handle = _findfirst(to_search, &fileinfo); //第一次查找
-		if (-1 == handle)return -1;
+		if (-1 == handle) return -1;
 		sprintf(szPathBuffer, "%s\\%s", szPath.c_str(), fileinfo.name); //打印出找到的文件的文件名这个不能并入while
-		appendNode(g_headPtr, szPathBuffer);
+		appendNode(sPtr, szPathBuffer);
 		while (!_findnext(handle, &fileinfo)) //循环查找其他符合的文件，知道找不到其他的为止
 		{
 			sprintf(szPathBuffer, "%s\\%s", szPath.c_str(), fileinfo.name);
-			appendNode(g_headPtr, szPathBuffer);
+			appendNode(sPtr, szPathBuffer);
 		}
 	}
-	else
+	else // no folder selected
 	{
-		printf("No folder selected!\n");
+		return -1;
 	}
-	system("pause");
 	_findclose(handle); //别忘了关闭句柄
 	return 0;
 }

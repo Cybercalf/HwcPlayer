@@ -34,7 +34,7 @@ int pauseMusic();
 
 int resumeMusic();
 
-int seekToPosition();
+int seekToPosition(int position);
 
 int viewPlaybackStatus();
 
