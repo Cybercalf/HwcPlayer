@@ -57,3 +57,5 @@ int getMusicCurrentPosition();
 int getMusicLength();
 
 int getMusicSpeed();
+
+void setMusicSpeed(int speed);

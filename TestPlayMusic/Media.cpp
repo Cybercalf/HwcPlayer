@@ -95,3 +95,10 @@ int getMusicSpeed()
 	MymciSendString("status BackMusic speed", szSpeedBuffer);
 	return atoi(szSpeedBuffer);
 }
+
+void setMusicSpeed(int speed)
+{
+	char cmd[1000] = "";
+	sprintf(cmd, "set BackMusic speed %d", speed);
+	MymciSendString(cmd, NULL);
+}

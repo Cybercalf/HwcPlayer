@@ -15,6 +15,7 @@ unsigned int number = 1;
 enum PLAY_STATUS play_status = STATUS_PLAY_SEQUENCE;
 enum STATUS status = STATUS_STOPPED;
 
+
 void mediaPlayerPage()
 {
 	// 结束程序的标志
@@ -95,6 +96,7 @@ void mediaPlayerPage()
 			break;
 		case 'o':
 		case 'O':
+			switchMusicSpeed();
 			break;
 		case 'q':
 		case 'Q':
@@ -268,4 +270,22 @@ void stepBackward10Sec()
 	if (jumpTime < 0) jumpTime = 0;
 	seekToPosition(jumpTime);
 	playMusic();
+}
+
+void switchMusicSpeed()
+{
+	switch (getMusicSpeed())
+	{
+	case 1000:
+		setMusicSpeed(1250);
+		break;
+	case 1500:
+		setMusicSpeed(800);
+		break;
+	case 800:
+		setMusicSpeed(1000);
+		break;
+	default:
+		break;
+	}
 }

@@ -58,3 +58,4 @@ void stepBackward10Sec();
 
 void switch_play_status();
 
+void switchMusicSpeed();
