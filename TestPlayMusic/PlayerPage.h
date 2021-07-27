@@ -54,3 +54,5 @@ void stepForward10Sec();
 
 void stepBackward10Sec();
 
+void switch_play_status();
+

@@ -24,7 +24,7 @@ int openMusic(const char* path)
 		strcpy_s(cmd, "open ");
 		strcat_s(cmd, path);
 		strcat_s(cmd, " alias BackMusic");
-		printf("cmd: %s\n", cmd);
+		// printf("cmd: %s\n", cmd);
 		return MymciSendString(cmd, NULL);
 	}
 	return -1;
@@ -38,7 +38,8 @@ int closeMusic()
 
 int playMusic()
 {
-	char cmd[1000] = "play BackMusic";
+	char cmd[1000] = "";
+	sprintf(cmd, "%s", "play BackMusic");
 	return MymciSendString(cmd, NULL);
 }
 
@@ -84,6 +85,6 @@ int seekToPosition(int position)
 {
 	char cmd[1000] = "";
 	sprintf(cmd, "seek BackMusic to %d", position);
-	printf("cmd: %s\n", cmd);
+	// printf("cmd: %s\n", cmd);
 	return MymciSendString(cmd, NULL);
 }

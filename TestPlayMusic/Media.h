@@ -16,6 +16,20 @@ while ((ch = getchar()) != EOF && ch != '\n')\
         }\
     }
 
+enum PLAY_STATUS
+{
+	STATUS_PLAY_SEQUENCE = 0,
+	STATUS_PLAY_REPEAT,
+	STATUS_PLAY_RANDOM,
+};
+
+enum STATUS
+{
+	STATUS_PLAY = 0,
+	STATUS_PAUSE,
+	STATUS_STOPPED,
+};
+
 // 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
 int MymciSendString(const char* szCommand, char* szbuffer);
 

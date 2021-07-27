@@ -3,20 +3,6 @@
 
 using namespace std;
 
-enum PLAY_STATUS
-{
-	STATUS_PLAY_SEQUENCE = 0,
-	STATUS_PLAY_REPEAT,
-	STATUS_PLAY_RANDOM,
-};
-
-enum STATUS
-{
-	STATUS_PLAY = 0,
-	STATUS_PAUSE,
-	STATUS_STOPPED,
-};
-
 char progressBarStr[50];
 char totalBarStr[100];
 char szStatusBuffer[1024];
@@ -71,18 +57,7 @@ void mediaPlayerPage()
 			break;
 
 		case '2':
-			switch (play_status)
-			{
-			case STATUS_PLAY_SEQUENCE:
-				play_status = STATUS_PLAY_REPEAT;
-				break;
-			case STATUS_PLAY_REPEAT:
-				play_status = STATUS_PLAY_RANDOM;
-				break;
-			case STATUS_PLAY_RANDOM:
-				play_status = STATUS_PLAY_SEQUENCE;
-				break;
-			}
+			switch_play_status();
 			break;
 		case '3':
 			printList(g_headPtr);
@@ -111,6 +86,7 @@ void mediaPlayerPage()
 			break;
 		case 'u':
 		case 'U':
+			stepBackward10Sec();
 			break;
 		case 'i':
 		case 'I':
@@ -221,6 +197,22 @@ void loadMediaName()
 	sprintf(szMediaNameBuffer, "%s", getMediaNameByNumber(g_headPtr, number));
 }
 
+void switch_play_status()
+{
+	switch (play_status)
+	{
+	case STATUS_PLAY_SEQUENCE:
+		play_status = STATUS_PLAY_REPEAT;
+		break;
+	case STATUS_PLAY_REPEAT:
+		play_status = STATUS_PLAY_RANDOM;
+		break;
+	case STATUS_PLAY_RANDOM:
+		play_status = STATUS_PLAY_SEQUENCE;
+		break;
+	}
+}
+
 void playMusicUp()
 {
 	closeMusic();
@@ -238,16 +230,16 @@ void playMusicDown()
 	case STATUS_PLAY_SEQUENCE:
 		number += 1;
 		if (number > getLength(g_headPtr)) number = 1;
-		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
 		break;
 	case STATUS_PLAY_REPEAT:
-		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusicRepeat();
 		break;
 	case STATUS_PLAY_RANDOM:
 		srand(time(0));
 		number = rand() % getLength(g_headPtr) + 1;
-		if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+		break;
 	}
+	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+	return;
 }
 
 void stepForward10Sec()
@@ -255,4 +247,14 @@ void stepForward10Sec()
 	int jumpTime = getMusicCurrentPosition() + 10000;
 	if (jumpTime > getMusicLength()) jumpTime = getMusicLength();
 	seekToPosition(jumpTime);
+	playMusic();
 }
+
+void stepBackward10Sec()
+{
+	int jumpTime = getMusicCurrentPosition() - 10000;
+	if (jumpTime < 0) jumpTime = 0;
+	seekToPosition(jumpTime);
+	playMusic();
+}
+
