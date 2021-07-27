@@ -69,31 +69,7 @@ void printList(MediaNodePtr& startPtr);
 // 返回链表长度
 unsigned int getLength(MediaNodePtr startPtr);
 
+// 根据编号返回节点的音乐名称
+const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num);
 #endif
 
-
-
-// // // 创建一个Media节点的实例。返回一个指向该新建的节点的指针。新建节点默认不与其他节点连接
-// // MediaNodePtr getNewMediaNode(unsigned int id, const char* fileName, const char* songName, const char* singerName,
-// //                          const char* timeLength, const char* fileType, const char* location);
-//
-// // 在链表中追加一个媒体节点，成功返回非0值，不成功返回0
-// int appendMediaNode(MediaNodePtr* sPtr, Media value);
-//
-// // 在链表中根据id删除一个媒体节点，成功返回非0值，不成功返回0
-// int deleteMediaNodeById(MediaNodePtr* sPtr, unsigned int id);
-//
-// // // 在链表中根据歌曲名查找所有符合条件的链表信息。
-// // // 返回一个指向新链表头部的指针，新链表存储所有符合条件的媒体节点
-// // // 不成功返回NULL
-// // MediaNodePtr searchAllMediaBySongName(MediaNodePtr sPtr, const char* songName);
-//
-// // 从头打印链表中所有节点的信息，成功返回1，不成功返回0
-// int printMediaLinkList(MediaNodePtr sPtr);
-//
-// // 根据id交换链表中两个媒体节点的位置，成功返回1，不成功返回0
-// int swapTwoMediaNodeById(MediaNodePtr * sPtr, unsigned int firstId, unsigned int secondId);
-//
-// // 根据id查找链表中的一个节点，成功返回一个指向符合要求的媒体节点的指针
-// // 不成功返回NULL
-// MediaNodePtr searchAMediaNodeById(MediaNodePtr sPtr, unsigned int id);

@@ -42,3 +42,9 @@ void loadProcessBar(int nowTime, int musicTime);
 void loadStatus();
 
 void loadPlayStatus();
+
+void loadMediaName();
+
+void playMusicUp();
+
+void playMusicDown();

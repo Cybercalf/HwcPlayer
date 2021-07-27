@@ -38,17 +38,21 @@ void mainMenuPage()
 void showMainMenuPage()
 {
 	system("cls");
-	printf("\n\n\n\n"
-	       "\t\t***************************************\t\t\n"
-	       "\t\t***************************************\t\t\n"
-	       "\t\t*************  HwcPlayer  *************\t\t\n"
-	       "\t\t***************************************\t\t\n"
-	       "\t\t***************************************\t\t\n"
-	       "\t\t**********  %d年 %d月 %d日   *********\t\t\n"
-	       "\t\t**********  %d时 %d分 %d秒  ***********\t\t\n"
-	       "\t\t***********  [L] 音乐列表  ************\t\t\n"
-	       "\t\t***********  [P] 播放界面  ************\t\t\n"
-	       "\t\t***********  [E] 退出      ************\t\t\n",
-	       getCurrentYear(), getCurrentMonth(), getCurrentDay(),
-	       getCurrentHour(), getCurrentMinute(), getCurrentSecond());
+	printf(
+		"\n\n\n\n"
+		"\t\t    * * * * * * * * * *           * * * * * * * * * *\n"
+		"\t\t    * * * * * * * *                   * * * * * * * *\n"
+		"\t\t    * * * * * *    H W C 音 乐 播 放 器   * * * * * *\n"
+		"\t\t    * * * * * * * *                   * * * * * * * *\n"
+		"\t\t    * * * * * * * * * *           * * * * * * * * * *\n"
+		"\n\n\n"
+		"\t\t                        -北京时间-\n"
+		"\t\t                   -%4d年%2d 月 %2d 日-\n"
+		"\t\t                   -%2d 点 %2d 分 %2d 秒-\n"
+		"\t\t                      -L-   音乐列表\n"
+		"\t\t                      -P-   播放界面\n"
+		"\t\t                      -V-   音量界面\n"
+		"\t\t                      -E-     退出\n"
+		, getCurrentYear(), getCurrentMonth(), getCurrentDay(),
+		getCurrentHour(), getCurrentMinute(), getCurrentSecond());
 }

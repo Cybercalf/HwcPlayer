@@ -73,7 +73,7 @@ int isListEmpty(MediaNodePtr startPtr)
 
 const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 {
-	if (number <= 0) return NULL;
+	if (number <= 0) return "\0";
 	char* tempPath = (char*)malloc(sizeof(char) * PATH_LENGTH);
 	memset(tempPath, '\0', sizeof(tempPath));
 	MediaNodePtr pMove = startPtr->next;
@@ -107,6 +107,27 @@ unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char* path)
 	{
 		return pMove->number;
 	}
+}
+
+const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num)
+{
+	if (num <= 0) return "\0";
+	char* tempName = (char*)malloc(sizeof(char) * NAME_LENGTH);
+	memset(tempName, '\0', sizeof(tempName));
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && pMove->number != num)
+	{
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL) return "\0";
+	// 如果找到了
+	else
+	{
+		strcpy_s(tempName, sizeof(char) * NAME_LENGTH, pMove->media.name);
+	}
+	return (const char*)tempName;
 }
 
 int appendNode(MediaNodePtr& startPtr, const char* path)
