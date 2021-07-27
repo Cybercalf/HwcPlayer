@@ -9,6 +9,7 @@
 #include "Media.h"
 #include "List.h"
 #include "ListPage.h"
+#include "List.h"
 
 #pragma comment (lib,"winmm.lib")
 
@@ -35,7 +36,7 @@ void showMediaPlayerMenu();
 
 void printProcessBar(int nowTime, int musicTime);
 
-void printStatus(char *szModeBuf);
+void printStatus(char* szModeBuf);
 
 void loadProcessBar(int nowTime, int musicTime);
 

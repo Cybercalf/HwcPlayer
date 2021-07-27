@@ -81,7 +81,15 @@ void mediaPlayerPage()
 				play_status = STATUS_PLAY_SEQUENCE;
 			}
 			break;
-
+		case '3':
+			printList(g_headPtr);
+			printf("%s\n", "请输入你想跳转的音乐编号：");
+			scanf("%u", &number);
+			stopMusic();
+			closeMusic();
+			openMusic(getNodePathByNumber(g_headPtr, number));
+			playMusic();
+			break;
 			// case 'o':
 			// 	StringCchPrintf(szCommandBuffer, sizeof(szCommandBuffer) - 1, "seek BackMusic to %s", szTimeBuffer);
 			// 	MymciSendString(szCommandBuffer, NULL);
@@ -123,6 +131,7 @@ void showMediaPlayerMenu()
 	printf("\t\t%s\n"
 	       "\t\t              - 1 -  播放/暂停\n"
 	       "\t\t              - 2 -  切换播放模式\n"
+	       "\t\t              - 3 -  跳转到\n"
 	       "\t\t              - J -  上一曲\n"
 	       "\t\t              - K -  下一曲\n"
 	       "\t\t              - 0 -  返回主菜单\n"
@@ -169,7 +178,7 @@ void loadStatus()
 	MymciSendString("status BackMusic mode", szStatusBuffer);
 	if (strcmp(szStatusBuffer, "paused") == 0) status = STATUS_PAUSE;
 	else if (strcmp(szStatusBuffer, "stopped") == 0) status = STATUS_STOPPED;
-	else if (strcmp(szStatusBuffer, "playing") == 0)  status = STATUS_PLAY;
+	else if (strcmp(szStatusBuffer, "playing") == 0) status = STATUS_PLAY;
 }
 
 void loadPlayStatus()

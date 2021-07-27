@@ -5,6 +5,12 @@
 #include <cstring>
 #include <cstdbool>
 #include "List.h"
+#include <iostream>
+#include <io.h>
+#include <string>
+#include <vector>
+#include "shlobj.h"
+#include <STRING>
 
 // #define DEBUG
 
@@ -37,3 +43,6 @@ void listPage();
 //
 void showListPage();
 
+bool GetFolder(std::string& folderpath, const char* szCaption, HWND hOwner);
+
+int loadPathInFolder();

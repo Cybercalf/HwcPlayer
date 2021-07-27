@@ -29,6 +29,12 @@ Media* createMedia(const char* path)
 		//获取音频时长，单位秒
 		mciSendString("status song length", lengthOfTime, 1024, NULL);
 		newMedia->length = atoi(lengthOfTime) / 1000;
+		// 如果找到的音频文件时长为0，则不能创建它，直接返回NULL
+		if(newMedia->length==0)
+		{
+			free(newMedia);
+			return NULL;
+		}
 		// 关闭文件
 		mciSendString("close song", NULL, 0, NULL);
 
