@@ -74,7 +74,6 @@ void mediaPlayerPage()
 			{
 				puts("打开失败，请检查编号填写是否正确");
 			}
-
 			break;
 		case 'j':
 		case 'J':
