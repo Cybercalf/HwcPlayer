@@ -88,3 +88,10 @@ int seekToPosition(int position)
 	// printf("cmd: %s\n", cmd);
 	return MymciSendString(cmd, NULL);
 }
+
+int getMusicSpeed()
+{
+	char szSpeedBuffer[1024];
+	MymciSendString("status BackMusic speed", szSpeedBuffer);
+	return atoi(szSpeedBuffer);
+}

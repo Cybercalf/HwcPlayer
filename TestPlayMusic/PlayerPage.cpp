@@ -8,6 +8,7 @@ char totalBarStr[100];
 char szStatusBuffer[1024];
 char szPlayModeBuffer[1024];
 char szMediaNameBuffer[1024];
+char szMediaSpeedBuffer[10];
 
 unsigned int number = 1;
 
@@ -92,7 +93,11 @@ void mediaPlayerPage()
 		case 'I':
 			stepForward10Sec();
 			break;
-		case '0':
+		case 'o':
+		case 'O':
+			break;
+		case 'q':
+		case 'Q':
 			exit = 1;
 			break;
 		default:
@@ -109,6 +114,7 @@ void showMediaPlayerMenu()
 	loadStatus();
 	loadPlayStatus();
 	loadMediaName();
+	loadMediaSpeed();
 	puts(
 		"\n\n\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
@@ -118,15 +124,17 @@ void showMediaPlayerMenu()
 	printf("\t\t    正在播放：%s\n", szMediaNameBuffer);
 	printf("\t\t    播放状态：%s\n", szStatusBuffer);
 	printf("\t\t    播放模式：%s\n", szPlayModeBuffer);
+	printf("\t\t    播放速度：%s\n", szMediaSpeedBuffer);
 	printf("\t\t%s\n"
 	       "\t\t              - 1 -  播放/暂停\n"
 	       "\t\t              - 2 -  切换播放模式\n"
 	       "\t\t              - 3 -  跳转到\n"
 	       "\t\t              - J -  上一曲\n"
 	       "\t\t              - K -  下一曲\n"
-		   "\t\t              - U -  快退10秒\n"
-		   "\t\t              - I -  快进10秒\n"
-	       "\t\t              - 0 -  返回主菜单\n"
+	       "\t\t              - U -  快退10秒\n"
+	       "\t\t              - I -  快进10秒\n"
+	       "\t\t              - O -  调整倍速\n"
+	       "\t\t              - Q -  返回主菜单\n"
 	       "\n"
 	       , totalBarStr);
 }
@@ -196,6 +204,11 @@ void loadMediaName()
 	sprintf(szMediaNameBuffer, "%s", getMediaNameByNumber(g_headPtr, number));
 }
 
+void loadMediaSpeed()
+{
+	sprintf(szMediaSpeedBuffer, "X %.1f", getMusicSpeed() * 1.0 / 1000);
+}
+
 void switch_play_status()
 {
 	switch (play_status)
@@ -256,4 +269,3 @@ void stepBackward10Sec()
 	seekToPosition(jumpTime);
 	playMusic();
 }
-

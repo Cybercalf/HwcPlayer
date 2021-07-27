@@ -46,6 +46,8 @@ void loadPlayStatus();
 
 void loadMediaName();
 
+void loadMediaSpeed();
+
 void playMusicUp();
 
 void playMusicDown();

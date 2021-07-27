@@ -55,3 +55,5 @@ int viewPlaybackStatus();
 int getMusicCurrentPosition();
 
 int getMusicLength();
+
+int getMusicSpeed();
