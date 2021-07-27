@@ -73,6 +73,7 @@ void mediaPlayerPage()
 			else
 			{
 				puts("打开失败，请检查编号填写是否正确");
+				system("pause");
 			}
 			break;
 		case 'j':
@@ -94,7 +95,6 @@ void mediaPlayerPage()
 		case '0':
 			exit = 1;
 			break;
-
 		default:
 			break;
 		}

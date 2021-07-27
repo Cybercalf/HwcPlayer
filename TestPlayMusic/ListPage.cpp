@@ -14,12 +14,15 @@ void listPage()
 
 	while (!exit)
 	{
+		system("cls");
+		printList(g_headPtr);
 		showListPage();
 		switch (_getch())
 		{
 		case '1':
 			if (loadPathInFolder(g_temp_headPtr) == 0)
 			{
+				system("cls");
 				printList(g_temp_headPtr);
 				printf("%s", "输入你想添加的音乐编号：");
 				scanf("%d", &num);
@@ -50,13 +53,11 @@ void listPage()
 				break;
 			}
 			break;
-		case '2': // print
-			printList(g_headPtr);
-
-			system("pause");
-			break;
+		// case '2': // print
+		// 	printList(g_headPtr);
+		// 	system("pause");
+		// 	break;
 		case '4':
-			storeList(FILE_NAME, g_headPtr);
 			exit = 1;
 			break;
 		case '5':
@@ -87,11 +88,9 @@ void listPage()
 
 void showListPage()
 {
-	system("cls");
-	puts("这里是播放列表页面！\n"
+	puts("\n\n"
 		"1. 从选择的文件夹中添加一个文件到播放列表\n"
 		"6. 导入一个文件夹下的音乐文件\n"
-		"2. 打印链表节点\n"
 		"5. 删除一个节点\n"
 		"7. 清空节点\n"
 		"4. exit"
