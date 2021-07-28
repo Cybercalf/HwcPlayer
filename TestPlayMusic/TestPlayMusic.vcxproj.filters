@@ -71,5 +71,8 @@
     <ClInclude Include="Volume.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Glue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

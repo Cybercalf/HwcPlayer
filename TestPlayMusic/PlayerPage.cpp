@@ -17,7 +17,6 @@ enum PLAY_STATUS play_mode = STATUS_PLAY_SEQUENCE;
 enum STATUS status = STATUS_STOPPED;
 enum SONG_MUTE_STATUS song_mute_status = NOT_MUTE;
 
-
 void playerPage()
 {
 	// 结束程序的标志
@@ -154,38 +153,35 @@ void showPlayerPage()
 		"\n\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
 		"\t\t    * * * * * *         音    乐          * * * * * *\n"
-		"\t\t    * * * * * * * *                   * * * * * * * *\n"
-	);
+		"\t\t    * * * * * * * *                   * * * * * * * *\n");
 	printf("\t\t    正在播放：         %-s\n"
-	       "\t\t    播放状态：         %-s\n"
-	       "\t\t    播放模式：         %-s\n"
-	       "\t\t    播放速度：         %-s\n"
-	       , szMediaNameBuf, szStatusBuf,
-	       szPlayStatusBuf, szMediaSpeedBuf);
+		   "\t\t    播放状态：         %-s\n"
+		   "\t\t    播放模式：         %-s\n"
+		   "\t\t    播放速度：         %-s\n",
+		   szMediaNameBuf, szStatusBuf,
+		   szPlayStatusBuf, szMediaSpeedBuf);
 	printf("\t\t    当前系统音量       %-5d\n"
-	       "\t\t    当前播放器音量     %-.1f%%\n"
-	       "\t\t    播放器是否静音     [%s]\n\n"
-	       , getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
+		   "\t\t    当前播放器音量     %-.1f%%\n"
+		   "\t\t    播放器是否静音     [%s]\n\n",
+		   getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
 	printf("\t\t%s\n\n"
-	       "\t\t       [ P ]  播放/暂停        [ D ]  切换播放模式\n"
-	       "\t\t       [ J ]  跳转到指定曲目   [ S ]  调整倍速\n"
-	       "\t\t       [ T ]  上一曲           [ Y ]  下一曲\n"
-	       "\t\t       [ U ]  快退10秒         [ I ]  快进10秒\n"
-	       "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
-	       "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
-	       "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n"
-	       , processBarBuf);
+		   "\t\t       [ P ]  播放/暂停        [ D ]  切换播放模式\n"
+		   "\t\t       [ J ]  跳转到指定曲目   [ S ]  调整倍速\n"
+		   "\t\t       [ T ]  上一曲           [ Y ]  下一曲\n"
+		   "\t\t       [ U ]  快退10秒         [ I ]  快进10秒\n"
+		   "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
+		   "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
+		   "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n",
+		   processBarBuf);
 }
-
 
 void loadProcessBar(int nowTime, int musicTime)
 {
 	int pos;
 	pos = sprintf(processBarBuf,
-	              "%02d:%02d ",
-	              nowTime / 60000 % 100,
-	              nowTime / 1000 % 60
-	);
+				  "%02d:%02d ",
+				  nowTime / 60000 % 100,
+				  nowTime / 1000 % 60);
 	if (musicTime == 0)
 	{
 		for (int i = 0; i < 50; i++)
@@ -206,17 +202,20 @@ void loadProcessBar(int nowTime, int musicTime)
 		}
 	}
 	pos += sprintf(processBarBuf + pos,
-	               " %02d:%02d",
-	               musicTime / 60000 % 100,
-	               musicTime / 1000 % 60);
+				   " %02d:%02d",
+				   musicTime / 60000 % 100,
+				   musicTime / 1000 % 60);
 }
 
 void loadStatus()
 {
 	MymciSendString("status BackMusic mode", szStatusBuf);
-	if (strcmp(szStatusBuf, "paused") == 0) status = STATUS_PAUSE;
-	else if (strcmp(szStatusBuf, "stopped") == 0) status = STATUS_STOPPED;
-	else if (strcmp(szStatusBuf, "playing") == 0) status = STATUS_PLAY;
+	if (strcmp(szStatusBuf, "paused") == 0)
+		status = STATUS_PAUSE;
+	else if (strcmp(szStatusBuf, "stopped") == 0)
+		status = STATUS_STOPPED;
+	else if (strcmp(szStatusBuf, "playing") == 0)
+		status = STATUS_PLAY;
 }
 
 void loadPlayStatus()
@@ -267,8 +266,10 @@ void playMusicUp()
 {
 	closeMusic();
 	number -= 1;
-	if (number <= 0) number = getLength(g_headPtr);
-	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+	if (number <= 0)
+		number = getLength(g_headPtr);
+	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0)
+		playMusic();
 	return;
 }
 
@@ -279,7 +280,8 @@ void playMusicDown()
 	{
 	case STATUS_PLAY_SEQUENCE:
 		number += 1;
-		if (number > getLength(g_headPtr)) number = 1;
+		if (number > getLength(g_headPtr))
+			number = 1;
 		break;
 	case STATUS_PLAY_REPEAT:
 		break;
@@ -288,14 +290,16 @@ void playMusicDown()
 		number = rand() % getLength(g_headPtr) + 1;
 		break;
 	}
-	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0) playMusic();
+	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0)
+		playMusic();
 	return;
 }
 
 void stepForward10Sec()
 {
 	int jumpTime = getMusicCurrentPosition() + 10000;
-	if (jumpTime > getMusicLength()) jumpTime = getMusicLength();
+	if (jumpTime > getMusicLength())
+		jumpTime = getMusicLength();
 	seekToPosition(jumpTime);
 	playMusic();
 }
@@ -303,7 +307,8 @@ void stepForward10Sec()
 void stepBackward10Sec()
 {
 	int jumpTime = getMusicCurrentPosition() - 10000;
-	if (jumpTime < 0) jumpTime = 0;
+	if (jumpTime < 0)
+		jumpTime = 0;
 	seekToPosition(jumpTime);
 	playMusic();
 }
@@ -328,8 +333,10 @@ void switchMusicSpeed()
 
 void loadIsSongMute()
 {
-	if (song_mute_status == MUTE) sprintf(isSongMuteBuf, "%s", "是\0");
-	else sprintf(isSongMuteBuf, "%s", "否\0");
+	if (song_mute_status == MUTE)
+		sprintf(isSongMuteBuf, "%s", "是\0");
+	else
+		sprintf(isSongMuteBuf, "%s", "否\0");
 }
 
 void switchSongMute()
@@ -351,27 +358,31 @@ void switchSongMute()
 void audioVolumeUp()
 {
 	int audio_volume = (getAudioVolume() + 2);
-	if (audio_volume > 100) audio_volume = 100;
+	if (audio_volume > 100)
+		audio_volume = 100;
 	setAudioVolume(audio_volume);
 }
 
 void audioVolumeDown()
 {
 	int audio_volume = (getAudioVolume() - 2);
-	if (audio_volume < 0) audio_volume = 0;
+	if (audio_volume < 0)
+		audio_volume = 0;
 	setAudioVolume(audio_volume);
 }
 
 void songVolumeUp()
 {
 	int song_volume = (getSongVolume() + 50);
-	if (song_volume > 1000) song_volume = 1000;
+	if (song_volume > 1000)
+		song_volume = 1000;
 	setSongVolume(song_volume);
 }
 
 void songVolumeDown()
 {
 	int song_volume = (getSongVolume() - 50);
-	if (song_volume < 0) song_volume = 0;
+	if (song_volume < 0)
+		song_volume = 0;
 	setSongVolume(song_volume);
 }

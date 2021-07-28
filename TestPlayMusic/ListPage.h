@@ -1,19 +1,7 @@
 ﻿// PlaylistPage.h: 播放列表页面。
-#include <cstdio>
-#include <cstdlib>
-#include <conio.h>
-#include <cstring>
-#include <cstdbool>
-#include "List.h"
-#include <iostream>
-#include <io.h>
-#include <string>
-#include <vector>
-#include "shlobj.h"
-#include <STRING>
 #include "File.h"
-
-// #define DEBUG
+#include "Glue.h"
+#include "List.h"
 
 #define CLEAR_BUF \
     {\

@@ -1,5 +1,5 @@
 ﻿#include "Time.h"
-#pragma warning(disable:4996)
+#pragma warning(disable : 4996)
 
 time_t timeParemeter; // 处理当前时间需要用到的参数
 // struct tm *timePtr;	  // 指向结构体tm的指针变量

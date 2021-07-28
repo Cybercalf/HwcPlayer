@@ -1,21 +1,6 @@
 ﻿// Media.h：媒体交互基本函数
 #pragma once
-
-#include <cstdio>
-#include <Windows.h>
-#include <mmsystem.h>
-#include <strsafe.h>
-
-#pragma comment (lib,"winmm.lib")
-
-#define CLEAR_BUF \
-    {\
-    int ch; \
-while ((ch = getchar()) != EOF && ch != '\n')\
-        {\
-        ; \
-        }\
-    }
+#include "Glue.h"
 
 enum PLAY_STATUS
 {
@@ -37,7 +22,6 @@ enum SONG_MUTE_STATUS
 	NOT_MUTE,
 };
 
-
 // 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
 // 参数：
 // szCommand：指令字符串
@@ -45,7 +29,7 @@ enum SONG_MUTE_STATUS
 // 返回值：
 // int，成功返回0，不成功返回非0
 //
-int MymciSendString(const char* szCommand, char* szbuffer);
+int MymciSendString(const char *szCommand, char *szbuffer);
 
 // 调用MCI接口打开文件，成功返回0，不成功返回非0
 // 参数：
@@ -53,7 +37,7 @@ int MymciSendString(const char* szCommand, char* szbuffer);
 // 返回值：
 // int，成功返回0，不成功返回非0
 //
-int openMusic(const char* path);
+int openMusic(const char *path);
 
 // 调用MCI接口关闭文件，成功返回0，不成功返回非0
 int closeMusic();
@@ -84,23 +68,23 @@ int seekToPosition(int position);
 // 调用MCI接口获取当前播放位置
 // 返回值：
 // int，当前播放的位置
-// 
+//
 int getMusicCurrentPosition();
 
 // 调用MCI接口获取当前音乐的总播放时长
 // 返回值：
 // int，当前音乐的总播放时长
-// 
+//
 int getMusicLength();
 
 // 调用MCI接口获取当前音乐的播放速度
 // 返回值：
 // int，当前音乐的播放速度，标准为1000
-// 
+//
 int getMusicSpeed();
 
 // 调用MCI接口设置当前音乐的播放速度
 // 参数：
 // speed：指定的音乐播放速度，标准为1000
-// 
+//
 void setMusicSpeed(int speed);

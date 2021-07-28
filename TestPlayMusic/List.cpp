@@ -1,8 +1,8 @@
 ﻿#include "List.h"
 
-Media* createMedia(const char* path)
+Media *createMedia(const char *path)
 {
-	struct _finddata_t* musicInfo = (struct _finddata_t*)malloc(sizeof(struct _finddata_t));
+	struct _finddata_t *musicInfo = (struct _finddata_t *)malloc(sizeof(struct _finddata_t));
 	long handle = _findfirst(path, musicInfo);
 	if (handle == -1)
 	{
@@ -11,7 +11,7 @@ Media* createMedia(const char* path)
 	else
 	{
 		// 为新建的Media结构体分配一块内存
-		Media* newMedia = (Media*)malloc(sizeof(Media));
+		Media *newMedia = (Media *)malloc(sizeof(Media));
 		// 初始化Media结构体中的参数
 		strcpy_s(newMedia->name, sizeof(newMedia->name), musicInfo->name);
 		strcpy_s(newMedia->path, sizeof(newMedia->path), path);
@@ -43,10 +43,10 @@ Media* createMedia(const char* path)
 	}
 }
 
-MediaNodePtr createNode(const char* path)
+MediaNodePtr createNode(const char *path)
 {
 	MediaNodePtr newNodePtr = (MediaNodePtr)malloc(sizeof(MediaNode));
-	Media* tempMediaPtr = createMedia(path);
+	Media *tempMediaPtr = createMedia(path);
 	// 新建的节点不指向任何节点，next赋值NULL
 	newNodePtr->next = NULL;
 	// 如果Media信息创建成功并且节点创建成功
@@ -57,8 +57,10 @@ MediaNodePtr createNode(const char* path)
 	}
 	else
 	{
-		if (newNodePtr != NULL) free(newNodePtr);
-		if (tempMediaPtr != NULL) free(tempMediaPtr);
+		if (newNodePtr != NULL)
+			free(newNodePtr);
+		if (tempMediaPtr != NULL)
+			free(tempMediaPtr);
 		return NULL;
 	}
 }
@@ -80,10 +82,11 @@ int isListEmpty(MediaNodePtr startPtr)
 	return startPtr->next == NULL;
 }
 
-const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
+const char *getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 {
-	if (number <= 0) return "\0";
-	char* tempPath = (char*)malloc(sizeof(char) * PATH_LENGTH);
+	if (number <= 0)
+		return "\0";
+	char *tempPath = (char *)malloc(sizeof(char) * PATH_LENGTH);
 	memset(tempPath, '\0', sizeof(tempPath));
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
@@ -92,16 +95,17 @@ const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 		pMove = pMove->next;
 	}
 	// 如果没找到
-	if (pMove == NULL) return "\0";
-		// 如果找到了
+	if (pMove == NULL)
+		return "\0";
+	// 如果找到了
 	else
 	{
 		strcpy_s(tempPath, sizeof(char) * PATH_LENGTH, pMove->media.path);
 	}
-	return (const char*)tempPath;
+	return (const char *)tempPath;
 }
 
-unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char* path)
+unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char *path)
 {
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
@@ -110,18 +114,20 @@ unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char* path)
 		pMove = pMove->next;
 	}
 	// 如果没找到
-	if (pMove == NULL) return 0;
-		// 如果找到了
+	if (pMove == NULL)
+		return 0;
+	// 如果找到了
 	else
 	{
 		return pMove->number;
 	}
 }
 
-const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num)
+const char *getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num)
 {
-	if (num <= 0) return "\0";
-	char* tempName = (char*)malloc(sizeof(char) * NAME_LENGTH);
+	if (num <= 0)
+		return "\0";
+	char *tempName = (char *)malloc(sizeof(char) * NAME_LENGTH);
 	memset(tempName, '\0', sizeof(tempName));
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
@@ -130,16 +136,17 @@ const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num)
 		pMove = pMove->next;
 	}
 	// 如果没找到
-	if (pMove == NULL) return "\0";
-		// 如果找到了
+	if (pMove == NULL)
+		return "\0";
+	// 如果找到了
 	else
 	{
 		strcpy_s(tempName, sizeof(char) * NAME_LENGTH, pMove->media.name);
 	}
-	return (const char*)tempName;
+	return (const char *)tempName;
 }
 
-int appendNode(MediaNodePtr& startPtr, const char* path)
+int appendNode(MediaNodePtr &startPtr, const char *path)
 {
 	// 先创建一个新的节点，以便追加到链表中
 	MediaNodePtr newPtr = createNode(path);
@@ -148,7 +155,7 @@ int appendNode(MediaNodePtr& startPtr, const char* path)
 	{
 		return -1;
 	}
-		// 如果新建节点成功
+	// 如果新建节点成功
 	else
 	{
 		// 寻找链表之前的节点中有没有与新建节点相同的节点
@@ -175,7 +182,7 @@ int appendNode(MediaNodePtr& startPtr, const char* path)
 			pMove = pMove->next;
 		}
 		// 经过移动两个指针，已经找到了链表的末尾，此时pMove是NULL，pMoveFront指向链表中的最后一个节点
-		pMoveFront->next = newPtr; // 让链表原先的最后一个节点连接新建的节点，从而把新建的节点追加到链表的尾部
+		pMoveFront->next = newPtr;				 // 让链表原先的最后一个节点连接新建的节点，从而把新建的节点追加到链表的尾部
 		newPtr->number = pMoveFront->number + 1; // 新建节点的编号比它上一个节点的编号要大1
 		return 0;
 	}
@@ -183,9 +190,10 @@ int appendNode(MediaNodePtr& startPtr, const char* path)
 
 // 根据编号删除一个链表的节点
 // return 0 if success, not 0 if fail
-int deleteNode(MediaNodePtr& startPtr, unsigned int num)
+int deleteNode(MediaNodePtr &startPtr, unsigned int num)
 {
-	if (num <= 0) return -1;
+	if (num <= 0)
+		return -1;
 	MediaNodePtr pMoveFront = startPtr;
 	MediaNodePtr pMove = startPtr->next;
 	// 寻找对应节点
@@ -195,8 +203,9 @@ int deleteNode(MediaNodePtr& startPtr, unsigned int num)
 		pMove = pMove->next;
 	}
 	// 如果没找到
-	if (pMove == NULL) return -1;
-		// 如果找到了
+	if (pMove == NULL)
+		return -1;
+	// 如果找到了
 	else
 	{
 		pMoveFront->next = pMove->next; // 让节点脱节
@@ -213,14 +222,16 @@ int deleteNode(MediaNodePtr& startPtr, unsigned int num)
 	}
 }
 
-void clearList(MediaNodePtr& startPtr)
+void clearList(MediaNodePtr &startPtr)
 {
-	if (isListEmpty(startPtr)) return;
-	while (0 == deleteNode(startPtr, 1));
+	if (isListEmpty(startPtr))
+		return;
+	while (0 == deleteNode(startPtr, 1))
+		;
 	return;
 }
 
-void printList(MediaNodePtr& startPtr)
+void printList(MediaNodePtr &startPtr)
 {
 	if (isListEmpty(startPtr))
 	{
@@ -242,7 +253,7 @@ void printList(MediaNodePtr& startPtr)
 			sprintf_s(length, "%d分%d秒", minutes, seconds);
 			// 打印
 			printf("\t\t    %-8d%-20s%-10s%-40s\n",
-			       pMove->number, pMove->media.name, length, pMove->media.path);
+				   pMove->number, pMove->media.name, length, pMove->media.path);
 			// 去打印下一个节点
 			pMove = pMove->next;
 		}
@@ -251,7 +262,8 @@ void printList(MediaNodePtr& startPtr)
 
 unsigned int getLength(MediaNodePtr startPtr)
 {
-	if (startPtr == NULL) return 0;
+	if (startPtr == NULL)
+		return 0;
 	else
 	{
 		MediaNodePtr pMoveFront = startPtr;

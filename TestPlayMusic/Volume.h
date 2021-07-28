@@ -1,14 +1,7 @@
 ﻿// Volume.h：与系统音量和播放器音量有关的基本操作函数
 #pragma once
+#include "Glue.h"
 #include "Media.h"
-#include <string>
-#include <mmdeviceapi.h> //提供IMM开头的结构
-#include <endpointvolume.h>
-#include <audioclient.h>
-#include <conio.h>
-#include <cstdio>
-#include <Windows.h>
-
 
 // 设置系统音量
 // 参数：

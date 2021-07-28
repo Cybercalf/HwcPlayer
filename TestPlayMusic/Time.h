@@ -1,5 +1,5 @@
 // Time.h: 所有处理时间有关的函数
-#include<ctime>
+#include <ctime>
 
 // 获取当前年份
 int getCurrentYear();

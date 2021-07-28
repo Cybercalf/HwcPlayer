@@ -3,7 +3,7 @@ using namespace std;
 
 void setAudioVolume(int audio_volume)
 {
-	IMMDeviceEnumerator* pDeviceEnumerator = 0;
+	IMMDeviceEnumerator *pDeviceEnumerator = 0;
 	/*The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
 	In the current implementation of the MMDevice API, the only device resources that this interface
 	can enumerate are audio endpoint devices.A client obtains a reference to an IMMDeviceEnumerator
@@ -17,7 +17,7 @@ void setAudioVolume(int audio_volume)
 	客户端通过调用CoCreateInstance函数获得对IMMDeviceEnumerator接口的引用，如上所述(参见MMDevice API)。由IMMDeviceEnumerator接口中的
 	方法枚举的设备资源表示为具有IMMDevice接口的对象集合。集合有一个IMMDeviceCollection接口。IMMDeviceEnumerator:: enumaudioendpoint方
 	法创建一个设备集合。为了获得设备集合中一个项的IMMDevice接口的指针，客户端调用IMMDeviceCollection:: item方法。*/
-	IMMDevice* pDevice = 0;
+	IMMDevice *pDevice = 0;
 
 	/*The IMMDevice interface encapsulates the generic features of a multimedia device resource.
 	In the current implementation of the MMDevice API, the only type of device resource that an
@@ -25,15 +25,15 @@ void setAudioVolume(int audio_volume)
 
 	/*IMMDevice接口封装了多媒体设备资源的通用特性。在MMDevice API的当前实现中，imdevice接口可以表示的设备资源的唯一类型是音频端点设备。*/
 
-	IAudioEndpointVolume* pAudioEndpointVolume = 0;
+	IAudioEndpointVolume *pAudioEndpointVolume = 0;
 
 	/*IAudioEndpointVolume接口表示与音频端点设备之间的音频流上的音量控制。*/
 	/*The IAudioEndpointVolume interface represents the volume controls on the audio stream to or from an audio endpoint device. */
 
-	IAudioClient* pAudioClient = 0;
+	IAudioClient *pAudioClient = 0;
 
 	CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator),
-	                 (void**)&pDeviceEnumerator);
+					 (void **)&pDeviceEnumerator);
 	/*STDAPI CoCreateInstance(
 		REFCLSID rclsid, //创建的Com对象的类标识符(CLSID)
 		LPUNKNOWN pUnkOuter, //指向接口IUnknown的指针
@@ -42,8 +42,8 @@ void setAudioVolume(int audio_volume)
 		LPVOID * ppv //用来接收指向Com对象接口地址的指针变量
 	);*/
 	pDeviceEnumerator->GetDefaultAudioEndpoint(eRender, eMultimedia, &pDevice);
-	pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (void**)&pAudioEndpointVolume);
-	pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void**)&pAudioClient);
+	pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (void **)&pAudioEndpointVolume);
+	pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **)&pAudioClient);
 
 	pAudioEndpointVolume->SetMasterVolumeLevelScalar(audio_volume / 100.0, &GUID_NULL);
 	pAudioClient->Release();
@@ -54,7 +54,7 @@ void setAudioVolume(int audio_volume)
 
 int getAudioVolume()
 {
-	IMMDeviceEnumerator* pDeviceEnumerator = 0;
+	IMMDeviceEnumerator *pDeviceEnumerator = 0;
 	/*The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
 	In the current implementation of the MMDevice API, the only device resources that this interface
 	can enumerate are audio endpoint devices.A client obtains a reference to an IMMDeviceEnumerator
@@ -68,7 +68,7 @@ int getAudioVolume()
 	客户端通过调用CoCreateInstance函数获得对IMMDeviceEnumerator接口的引用，如上所述(参见MMDevice API)。由IMMDeviceEnumerator接口中的
 	方法枚举的设备资源表示为具有IMMDevice接口的对象集合。集合有一个IMMDeviceCollection接口。IMMDeviceEnumerator:: enumaudioendpoint方
 	法创建一个设备集合。为了获得设备集合中一个项的IMMDevice接口的指针，客户端调用IMMDeviceCollection:: item方法。*/
-	IMMDevice* pDevice = 0;
+	IMMDevice *pDevice = 0;
 
 	/*The IMMDevice interface encapsulates the generic features of a multimedia device resource.
 	In the current implementation of the MMDevice API, the only type of device resource that an
@@ -76,15 +76,15 @@ int getAudioVolume()
 
 	/*IMMDevice接口封装了多媒体设备资源的通用特性。在MMDevice API的当前实现中，imdevice接口可以表示的设备资源的唯一类型是音频端点设备。*/
 
-	IAudioEndpointVolume* pAudioEndpointVolume = 0;
+	IAudioEndpointVolume *pAudioEndpointVolume = 0;
 
 	/*IAudioEndpointVolume接口表示与音频端点设备之间的音频流上的音量控制。*/
 	/*The IAudioEndpointVolume interface represents the volume controls on the audio stream to or from an audio endpoint device. */
 
-	IAudioClient* pAudioClient = 0;
+	IAudioClient *pAudioClient = 0;
 
 	CoCreateInstance(__uuidof(MMDeviceEnumerator), NULL, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator),
-	                 (void**)&pDeviceEnumerator);
+					 (void **)&pDeviceEnumerator);
 	/*STDAPI CoCreateInstance(
 		REFCLSID rclsid, //创建的Com对象的类标识符(CLSID)
 		LPUNKNOWN pUnkOuter, //指向接口IUnknown的指针
@@ -94,11 +94,12 @@ int getAudioVolume()
 	);*/
 
 	// 以下是错误临时处理代码
-	if (pDeviceEnumerator == NULL) return 0;
-	
+	if (pDeviceEnumerator == NULL)
+		return 0;
+
 	pDeviceEnumerator->GetDefaultAudioEndpoint(eRender, eMultimedia, &pDevice);
-	pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (void**)&pAudioEndpointVolume);
-	pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void**)&pAudioClient);
+	pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (void **)&pAudioEndpointVolume);
+	pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void **)&pAudioClient);
 	float current_audio_volume;
 	pAudioEndpointVolume->GetMasterVolumeLevelScalar(&current_audio_volume);
 	pAudioClient->Release();

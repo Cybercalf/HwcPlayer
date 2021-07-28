@@ -1,27 +1,12 @@
 ﻿// MediaPlayerPage.h: 播放器页面
 #pragma once
 
-#include <cstdio>
-#include <Windows.h>
-#include <mmsystem.h>
-#include <strsafe.h>
-#include <conio.h>
-#include "Media.h"
+#include "Glue.h"
 #include "List.h"
-#include "Volume.h"
 #include "ListPage.h"
+#include "Media.h"
+#include "Volume.h"
 
-#pragma comment (lib,"winmm.lib")
-
-#define CLEAR_BUF \
-    {\
-    int ch; \
-while ((ch = getchar()) != EOF && ch != '\n')\
-        {\
-        ; \
-        }\
-    }
- 
 // 展示播放器页面，同时承担页面交互
 // 交互功能：
 // 1. 播放与暂停
