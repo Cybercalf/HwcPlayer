@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Media.h"
 #include <string>
-#include "VolumePage.h"
 #include <mmdeviceapi.h> //提供IMM开头的结构
 #include <endpointvolume.h>
 #include <audioclient.h>

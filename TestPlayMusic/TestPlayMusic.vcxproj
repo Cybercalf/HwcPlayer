@@ -28,7 +28,6 @@
     <ClCompile Include="ListPage.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Volume.cpp" />
-    <ClCompile Include="VolumePage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h" />
@@ -40,7 +39,6 @@
     <ClInclude Include="ListPage.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Volume.h" />
-    <ClInclude Include="VolumePage.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
