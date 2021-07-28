@@ -99,13 +99,13 @@ void showListPage()
 }
 
 
-// Function name    : GetFolder
+// Function name    : getFolder
 // Description      : Open and get Folder Dialog.
 // Return type      : true means click ok, false mean no select and cancel.
 // Argument         : folder path reference
 // Argument         : dialog window caption
 // Argument         : parent window handle
-bool GetFolder(std::string& folderpath, const char* szCaption, HWND hOwner)
+bool getFolder(std::string& folderpath, const char* szCaption, HWND hOwner)
 {
 	bool retVal = false;
 
@@ -148,7 +148,7 @@ int loadPathInFolder(MediaNodePtr sPtr)
 	long handle; //用于查找的句柄
 	std::string szPath("");
 
-	if (GetFolder(szPath, "请选择你想打开的文件夹", NULL) == true)
+	if (getFolder(szPath, "请选择你想打开的文件夹", NULL) == true)
 	{
 		char* cc;
 		int length = strlen(szPath.c_str());

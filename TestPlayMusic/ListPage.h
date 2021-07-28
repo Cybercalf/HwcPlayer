@@ -44,6 +44,16 @@ void listPage();
 //
 void showListPage();
 
-bool GetFolder(std::string& folderpath, const char* szCaption, HWND hOwner);
+// Function name    : GetFolder
+// Description      : Open and get Folder Dialog.
+// Return type      : true means click ok, false mean no select and cancel.
+// Argument         : folder path reference
+// Argument         : dialog window caption
+// Argument         : parent window handle
+bool getFolder(std::string& folderpath, const char* szCaption, HWND hOwner);
 
+// 将指定文件夹中的音乐文件信息存到指定链表中
+// 参数：
+// sPtr：指定链表的表头
+//
 int loadPathInFolder(MediaNodePtr sPtr);
