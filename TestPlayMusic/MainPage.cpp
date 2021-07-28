@@ -10,7 +10,7 @@ void mainPage()
 		while (!_kbhit())
 		{
 			showMainPage();
-			Sleep(1000);
+			Sleep(800);
 		}
 		switch (_getch())
 		{
@@ -26,7 +26,7 @@ void mainPage()
 			break;
 		case 'P':
 		case 'p':
-			mediaPlayerPage();
+			playerPage();
 			break;
 		case 'a':
 		case 'A':
@@ -49,10 +49,10 @@ void showMainPage()
 		"        * * * * *  \\    T    /\\     /\\  \\___|    |   |  |__/ __ \\\\___  \\   ___/|  | \\/* * * * *\n"
 		"          * * * * * \\___|_  /  \\/\\_/  \\___  >____|   |____(____  / ____| \\___  >__| * * * * *\n"
 		"            * * * * *     \\/              \\/                   \\/\\/          \\/ * * * * *\n"
-		"\n\n\n"
-		"\t\t\t                        -北京时间-\n"
-		"\t\t\t                   -%4d年 %2d 月 %2d 日-\n"
-		"\t\t\t                   -%3d 点 %2d 分 %2d 秒-\n\n"
+		"\n\n"
+		"\t\t\t                       - 北京时间 -\n\n"
+		"\t\t\t                  - %-4d年 %-2d 月 %-2d 日 -\n"
+		"\t\t\t                  - %-4d点 %-2d 分 %-2d 秒 -\n\n"
 		"\t\t\t                      [L]   音乐列表\n\n"
 		"\t\t\t                      [P]   播放器界面\n\n"
 		"\t\t\t                      [A]   关于\n\n"
@@ -90,11 +90,11 @@ void showAboutPage()
 		"@@@@@@@@O@OO`      ..                ,[[[[[[[[[[.                        ..]]]]]OOOOOOOO@@@@@@@@@@@\n"
 		"@@@@@@@@@@@@OOOOOOOOOOOOOOOOOO\\]]`.                                      \\OOOOOO@@@@@@@@@@@@@@@@@@@\n");
 
-	puts("\n\n\t\t制作人员：\n\n"
-		"\t\t胡未名(https://github.com/Cybercalf)\n\n"
-		"\t\t王澳(https://github.com/SCU-SE2020-WangAo)\n\n"
-		"\t\t陈怡君(https://github.com/dobole)\n\n"
-		"\t\t这是三人一起完成的小项目，缺少任何人，这个小程序都不会像现在一样完整，感谢每一位伟大的开发者！\n\n"
+	puts("\n\n\t制作人员：\n\n"
+		"\t胡未名(https://github.com/Cybercalf)\n\n"
+		"\t王澳(https://github.com/SCU-SE2020-WangAo)\n\n"
+		"\t陈怡君(https://github.com/dobole)\n\n"
+		"\t这是三人一起完成的小项目，缺少任何人，这个小程序都不会像现在一样完整，感谢每一位伟大的开发者！\n\n"
 		"\t\t\t\t\t\t\t\t\t————胡未名\n"
 	);
 	system("pause");

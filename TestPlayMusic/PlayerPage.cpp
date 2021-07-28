@@ -2,37 +2,32 @@
 
 using namespace std;
 
-char progressBarStr[50];
-char totalBarStr[100];
-char szStatusBuffer[1024];
-char szPlayModeBuffer[1024];
-char szMediaNameBuffer[1024];
-char szMediaSpeedBuffer[10];
+char processBarBuf[100];
+char szStatusBuf[1024];
+char szPlayStatusBuf[1024];
+char szMediaNameBuf[1024];
+char szMediaSpeedBuf[10];
 char isSongMuteBuf[10];
 
 int temp_song_volume = 0;
 
 unsigned int number = 1;
 
-enum PLAY_STATUS play_status = STATUS_PLAY_SEQUENCE;
+enum PLAY_STATUS play_mode = STATUS_PLAY_SEQUENCE;
 enum STATUS status = STATUS_STOPPED;
 enum SONG_MUTE_STATUS song_mute_status = NOT_MUTE;
 
 
-void mediaPlayerPage()
+void playerPage()
 {
 	// 结束程序的标志
 	int exit = 0;
 	openMusic(getNodePathByNumber(g_headPtr, number));
-	// char szTimeBuffer[1024];
-
-	// char szCommandBuffer[1024];
-
 	while (exit == 0)
 	{
 		while (!_kbhit())
 		{
-			showMediaPlayerMenu();
+			showPlayerPage();
 			if (status == STATUS_STOPPED &&
 				getMusicCurrentPosition() == getMusicLength())
 			{
@@ -92,11 +87,11 @@ void mediaPlayerPage()
 			break;
 		case 'y':
 		case 'Y':
-			if (play_status == STATUS_PLAY_REPEAT)
+			if (play_mode == STATUS_PLAY_REPEAT)
 			{
-				play_status = STATUS_PLAY_SEQUENCE;
+				play_mode = STATUS_PLAY_SEQUENCE;
 				playMusicDown();
-				play_status = STATUS_PLAY_REPEAT;
+				play_mode = STATUS_PLAY_REPEAT;
 			}
 			else
 			{
@@ -146,7 +141,7 @@ void mediaPlayerPage()
 }
 
 // 显示命令
-void showMediaPlayerMenu()
+void showPlayerPage()
 {
 	system("cls");
 	loadProcessBar(getMusicCurrentPosition(), getMusicLength());
@@ -165,8 +160,8 @@ void showMediaPlayerMenu()
 	       "\t\t    播放状态：         %-s\n"
 	       "\t\t    播放模式：         %-s\n"
 	       "\t\t    播放速度：         %-s\n"
-	       , szMediaNameBuffer, szStatusBuffer,
-	       szPlayModeBuffer, szMediaSpeedBuffer);
+	       , szMediaNameBuf, szStatusBuf,
+	       szPlayStatusBuf, szMediaSpeedBuf);
 	printf("\t\t    当前系统音量       %-5d\n"
 	       "\t\t    当前播放器音量     %-.1f%%\n"
 	       "\t\t    播放器是否静音     [%s]\n\n"
@@ -179,14 +174,14 @@ void showMediaPlayerMenu()
 	       "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
 	       "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
 	       "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n"
-	       , totalBarStr);
+	       , processBarBuf);
 }
 
 
 void loadProcessBar(int nowTime, int musicTime)
 {
 	int pos;
-	pos = sprintf(totalBarStr,
+	pos = sprintf(processBarBuf,
 	              "%02d:%02d ",
 	              nowTime / 60000 % 100,
 	              nowTime / 1000 % 60
@@ -195,7 +190,7 @@ void loadProcessBar(int nowTime, int musicTime)
 	{
 		for (int i = 0; i < 50; i++)
 		{
-			pos += sprintf(totalBarStr + pos, "%c", '-');
+			pos += sprintf(processBarBuf + pos, "%c", '-');
 		}
 	}
 	else
@@ -203,14 +198,14 @@ void loadProcessBar(int nowTime, int musicTime)
 		int percentage = 50 * nowTime / musicTime;
 		for (int i = 0; i < percentage; i++)
 		{
-			pos += sprintf(totalBarStr + pos, "%c", '*');
+			pos += sprintf(processBarBuf + pos, "%c", '*');
 		}
 		for (int i = percentage; i < 50; i++)
 		{
-			pos += sprintf(totalBarStr + pos, "%c", '-');
+			pos += sprintf(processBarBuf + pos, "%c", '-');
 		}
 	}
-	pos += sprintf(totalBarStr + pos,
+	pos += sprintf(processBarBuf + pos,
 	               " %02d:%02d",
 	               musicTime / 60000 % 100,
 	               musicTime / 1000 % 60);
@@ -218,24 +213,24 @@ void loadProcessBar(int nowTime, int musicTime)
 
 void loadStatus()
 {
-	MymciSendString("status BackMusic mode", szStatusBuffer);
-	if (strcmp(szStatusBuffer, "paused") == 0) status = STATUS_PAUSE;
-	else if (strcmp(szStatusBuffer, "stopped") == 0) status = STATUS_STOPPED;
-	else if (strcmp(szStatusBuffer, "playing") == 0) status = STATUS_PLAY;
+	MymciSendString("status BackMusic mode", szStatusBuf);
+	if (strcmp(szStatusBuf, "paused") == 0) status = STATUS_PAUSE;
+	else if (strcmp(szStatusBuf, "stopped") == 0) status = STATUS_STOPPED;
+	else if (strcmp(szStatusBuf, "playing") == 0) status = STATUS_PLAY;
 }
 
 void loadPlayStatus()
 {
-	switch (play_status)
+	switch (play_mode)
 	{
 	case STATUS_PLAY_SEQUENCE:
-		sprintf(szPlayModeBuffer, "%s", "列表循环");
+		sprintf(szPlayStatusBuf, "%s", "列表循环");
 		break;
 	case STATUS_PLAY_REPEAT:
-		sprintf(szPlayModeBuffer, "%s", "单曲循环");
+		sprintf(szPlayStatusBuf, "%s", "单曲循环");
 		break;
 	case STATUS_PLAY_RANDOM:
-		sprintf(szPlayModeBuffer, "%s", "随机播放");
+		sprintf(szPlayStatusBuf, "%s", "随机播放");
 		break;
 	default:
 		break;
@@ -244,26 +239,26 @@ void loadPlayStatus()
 
 void loadMediaName()
 {
-	sprintf(szMediaNameBuffer, "%s", getMediaNameByNumber(g_headPtr, number));
+	sprintf(szMediaNameBuf, "%s", getMediaNameByNumber(g_headPtr, number));
 }
 
 void loadMediaSpeed()
 {
-	sprintf(szMediaSpeedBuffer, "X %.2f", getMusicSpeed() * 1.0 / 1000);
+	sprintf(szMediaSpeedBuf, "X %.2f", getMusicSpeed() * 1.0 / 1000);
 }
 
 void switch_play_status()
 {
-	switch (play_status)
+	switch (play_mode)
 	{
 	case STATUS_PLAY_SEQUENCE:
-		play_status = STATUS_PLAY_REPEAT;
+		play_mode = STATUS_PLAY_REPEAT;
 		break;
 	case STATUS_PLAY_REPEAT:
-		play_status = STATUS_PLAY_RANDOM;
+		play_mode = STATUS_PLAY_RANDOM;
 		break;
 	case STATUS_PLAY_RANDOM:
-		play_status = STATUS_PLAY_SEQUENCE;
+		play_mode = STATUS_PLAY_SEQUENCE;
 		break;
 	}
 }
@@ -280,7 +275,7 @@ void playMusicUp()
 void playMusicDown()
 {
 	closeMusic();
-	switch (play_status)
+	switch (play_mode)
 	{
 	case STATUS_PLAY_SEQUENCE:
 		number += 1;
