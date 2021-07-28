@@ -8,9 +8,7 @@
 #include <conio.h>
 #include "Media.h"
 #include "List.h"
-#include "ListPage.h"
-#include "List.h"
-#include "VolumePage.h"
+#include "Volume.h"
 #include "ListPage.h"
 
 #pragma comment (lib,"winmm.lib")
@@ -23,7 +21,7 @@ while ((ch = getchar()) != EOF && ch != '\n')\
         ; \
         }\
     }
-
+ 
 // 展示播放器页面，同时承担页面交互
 void mediaPlayerPage();
 // 根据歌曲展示它的歌曲名、歌手、当前播放时间、全部播放时间，以及一个据此生成的进度条
@@ -61,3 +59,15 @@ void stepBackward10Sec();
 void switch_play_status();
 
 void switchMusicSpeed();
+
+void loadIsSongMute();
+
+void switchSongMute();
+
+void audioVolumeUp();
+
+void audioVolumeDown();
+
+void songVolumeUp();
+
+void songVolumeDown();

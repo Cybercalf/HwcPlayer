@@ -9,6 +9,13 @@
 #include <cstdio>
 #include <Windows.h>
 
+enum SONG_MUTE_STATUS
+{
+	MUTE = 0,
+	NOT_MUTE,
+};
+
+
 void setAudioVolume(int audio_volume);
 
 int getAudioVolume();

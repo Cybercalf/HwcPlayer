@@ -8,11 +8,13 @@ char szStatusBuffer[1024];
 char szPlayModeBuffer[1024];
 char szMediaNameBuffer[1024];
 char szMediaSpeedBuffer[10];
+char isSongMuteBuf[10];
 
 unsigned int number = 1;
 
 enum PLAY_STATUS play_status = STATUS_PLAY_SEQUENCE;
 enum STATUS status = STATUS_STOPPED;
+enum SONG_MUTE_STATUS song_mute_status = NOT_MUTE;
 
 
 void mediaPlayerPage()
@@ -34,12 +36,13 @@ void mediaPlayerPage()
 			{
 				playMusicDown();
 			}
-			Sleep(1000);
+			Sleep(800);
 		}
 
 		switch (_getch())
 		{
-		case '1':
+		case 'p':
+		case 'P':
 			if (status == STATUS_STOPPED)
 			{
 				playMusic();
@@ -57,10 +60,12 @@ void mediaPlayerPage()
 			}
 			break;
 
-		case '2':
+		case 'd':
+		case 'D':
 			switch_play_status();
 			break;
-		case '3':
+		case 'j':
+		case 'J':
 			printList(g_headPtr);
 			printf("%s\n", "请输入你想跳转的音乐编号：");
 			int temp_num;
@@ -79,13 +84,18 @@ void mediaPlayerPage()
 				system("pause");
 			}
 			break;
-		case 'j':
-		case 'J':
+		case 't':
+		case 'T':
 			playMusicUp();
 			break;
-		case 'k':
-		case 'K':
-			playMusicDown();
+		case 'y':
+		case 'Y':
+			if(play_status == STATUS_PLAY_REPEAT)
+			{
+				play_status = STATUS_PLAY_SEQUENCE;
+				playMusicDown();
+				play_status = STATUS_PLAY_REPEAT;
+			}
 			break;
 		case 'u':
 		case 'U':
@@ -95,13 +105,29 @@ void mediaPlayerPage()
 		case 'I':
 			stepForward10Sec();
 			break;
-		case 'o':
-		case 'O':
+		case 's':
+		case 'S':
 			switchMusicSpeed();
 			break;
-		case 'v':
-		case 'V':
-			volumePage();
+		case '_':
+		case '-':
+			audioVolumeDown();
+			break;
+		case '+':
+		case '=':
+			audioVolumeUp();
+			break;
+		case '*':
+		case '8':
+			songVolumeDown();
+			break;
+		case '(':
+		case '9':
+			songVolumeUp();
+			break;
+		case 'm':
+		case 'M':
+			switchSongMute();
 			break;
 		case 'q':
 		case 'Q':
@@ -122,28 +148,31 @@ void showMediaPlayerMenu()
 	loadPlayStatus();
 	loadMediaName();
 	loadMediaSpeed();
+	loadIsSongMute();
 	puts(
-		"\n\n\n"
+		"\n\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
 		"\t\t    * * * * * *         音    乐          * * * * * *\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
-		"\n");
-	printf("\t\t    正在播放：%s\n", szMediaNameBuffer);
-	printf("\t\t    播放状态：%s\n", szStatusBuffer);
-	printf("\t\t    播放模式：%s\n", szPlayModeBuffer);
-	printf("\t\t    播放速度：%s\n\n", szMediaSpeedBuffer);
+	);
+	printf("\t\t    正在播放：         %s\n"
+	       "\t\t    播放状态：         %s\n"
+	       "\t\t    播放模式：         %s\n"
+	       "\t\t    播放速度：         %s\n"
+	       , szMediaNameBuffer, szStatusBuffer,
+	       szPlayModeBuffer, szMediaSpeedBuffer);
+	printf("\t\t    当前系统音量    %5d\n"
+	       "\t\t    当前播放器音量     %.1f%%\n"
+	       "\t\t    播放器是否静音     [%s]\n\n"
+	       , getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
 	printf("\t\t%s\n\n"
-	       "\t\t              - 1 -  播放/暂停\n"
-	       "\t\t              - 2 -  切换播放模式\n"
-	       "\t\t              - 3 -  跳转到\n"
-	       "\t\t              - J -  上一曲\n"
-	       "\t\t              - K -  下一曲\n"
-	       "\t\t              - U -  快退10秒\n"
-	       "\t\t              - I -  快进10秒\n"
-	       "\t\t              - O -  调整倍速\n"
-		   "\t\t              - V -  调整音量\n"
-	       "\t\t              - Q -  返回主菜单\n"
-	       "\n"
+	       "\t\t       [ P ]  播放/暂停        [ D ]  切换播放模式\n"
+	       "\t\t       [ J ]  跳转到指定曲目   [ S ]  调整倍速\n"
+	       "\t\t       [ T ]  上一曲           [ Y ]  下一曲\n"
+	       "\t\t       [ U ]  快退10秒         [ I ]  快进10秒\n"
+	       "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
+	       "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
+	       "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n"
 	       , totalBarStr);
 }
 
@@ -294,4 +323,52 @@ void switchMusicSpeed()
 	default:
 		break;
 	}
+}
+
+void loadIsSongMute()
+{
+	if (song_mute_status == MUTE) sprintf(isSongMuteBuf, "%s", "是\0");
+	else sprintf(isSongMuteBuf, "%s", "否\0");
+}
+
+void switchSongMute()
+{
+	if (song_mute_status == NOT_MUTE)
+	{
+		setSongMute(true);
+		song_mute_status = MUTE;
+	}
+	else
+	{
+		setSongMute(false);
+		song_mute_status = NOT_MUTE;
+	}
+}
+
+void audioVolumeUp()
+{
+	int audio_volume = (getAudioVolume() + 2);
+	if (audio_volume > 100) audio_volume = 100;
+	setAudioVolume(audio_volume);
+}
+
+void audioVolumeDown()
+{
+	int audio_volume = (getAudioVolume() - 2);
+	if (audio_volume < 0) audio_volume = 0;
+	setAudioVolume(audio_volume);
+}
+
+void songVolumeUp()
+{
+	int song_volume = (getSongVolume() + 50);
+	if (song_volume > 1000) song_volume = 1000;
+	setSongVolume(song_volume);
+}
+
+void songVolumeDown()
+{
+	int song_volume = (getSongVolume() - 50);
+	if (song_volume < 0) song_volume = 0;
+	setSongVolume(song_volume);
 }
