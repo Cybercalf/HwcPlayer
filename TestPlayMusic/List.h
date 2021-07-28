@@ -2,7 +2,6 @@
 #pragma once
 #ifndef LIST_H
 #define LIST_H
-// #pragma comment(lib, "winmm.lib")
 #include "Glue.h"
 
 #define NAME_LENGTH 200
