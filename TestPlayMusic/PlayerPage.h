@@ -10,6 +10,8 @@
 #include "List.h"
 #include "ListPage.h"
 #include "List.h"
+#include "VolumePage.h"
+#include "ListPage.h"
 
 #pragma comment (lib,"winmm.lib")
 

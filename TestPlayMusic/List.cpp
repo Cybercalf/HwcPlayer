@@ -221,11 +221,11 @@ void printList(MediaNodePtr& startPtr)
 {
 	if (isListEmpty(startPtr))
 	{
-		puts("链表为空");
+		puts("\t\t    音乐列表为空");
 	}
 	else
 	{
-		printf("%-8s%-20s%-10s%-40s\n", "编号", "歌名", "时长", "路径");
+		printf("\t\t    %-8s%-20s%-10s%-40s\n", "编号", "歌名", "时长", "路径");
 		// 打印要从第一个有意义的节点开始，链表的头不存储媒体信息，所以打印要从头后面连接的第一个节点开始
 		MediaNodePtr pMove = startPtr->next;
 		int minutes = 0, seconds = 0;
@@ -238,8 +238,8 @@ void printList(MediaNodePtr& startPtr)
 			char length[100] = "";
 			sprintf_s(length, "%d分%d秒", minutes, seconds);
 			// 打印
-			printf("%-8d%-20s%-10s%-40s\n",
-			       pMove->number, pMove->media.name, length, pMove->media.path);
+			printf("\t\t    %-8d%-20s%-10s%-40s\n",
+				pMove->number, pMove->media.name, length, pMove->media.path);
 			// 去打印下一个节点
 			pMove = pMove->next;
 		}

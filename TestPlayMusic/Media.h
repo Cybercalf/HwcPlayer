@@ -30,6 +30,7 @@ enum STATUS
 	STATUS_STOPPED,
 };
 
+
 // 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
 int MymciSendString(const char* szCommand, char* szbuffer);
 

@@ -1,5 +1,4 @@
 ﻿#include "PlayerPage.h"
-#include "ListPage.h"
 
 using namespace std;
 
@@ -64,10 +63,12 @@ void mediaPlayerPage()
 		case '3':
 			printList(g_headPtr);
 			printf("%s\n", "请输入你想跳转的音乐编号：");
-			scanf("%u", &number);
+			int temp_num;
+			scanf("%u", &temp_num);
 			CLEAR_BUF
-			if (number >= 1 && number <= getLength(g_headPtr))
+			if (temp_num >= 1 && temp_num <= getLength(g_headPtr))
 			{
+				number = temp_num;
 				closeMusic();
 				openMusic(getNodePathByNumber(g_headPtr, number));
 				playMusic();
@@ -98,6 +99,10 @@ void mediaPlayerPage()
 		case 'O':
 			switchMusicSpeed();
 			break;
+		case 'v':
+		case 'V':
+			volumePage();
+			break;
 		case 'q':
 		case 'Q':
 			exit = 1;
@@ -122,12 +127,12 @@ void showMediaPlayerMenu()
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
 		"\t\t    * * * * * *         音    乐          * * * * * *\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
-		"\n\n\n");
+		"\n");
 	printf("\t\t    正在播放：%s\n", szMediaNameBuffer);
 	printf("\t\t    播放状态：%s\n", szStatusBuffer);
 	printf("\t\t    播放模式：%s\n", szPlayModeBuffer);
-	printf("\t\t    播放速度：%s\n", szMediaSpeedBuffer);
-	printf("\t\t%s\n"
+	printf("\t\t    播放速度：%s\n\n", szMediaSpeedBuffer);
+	printf("\t\t%s\n\n"
 	       "\t\t              - 1 -  播放/暂停\n"
 	       "\t\t              - 2 -  切换播放模式\n"
 	       "\t\t              - 3 -  跳转到\n"
@@ -136,6 +141,7 @@ void showMediaPlayerMenu()
 	       "\t\t              - U -  快退10秒\n"
 	       "\t\t              - I -  快进10秒\n"
 	       "\t\t              - O -  调整倍速\n"
+		   "\t\t              - V -  调整音量\n"
 	       "\t\t              - Q -  返回主菜单\n"
 	       "\n"
 	       , totalBarStr);
@@ -208,7 +214,7 @@ void loadMediaName()
 
 void loadMediaSpeed()
 {
-	sprintf(szMediaSpeedBuffer, "X %.1f", getMusicSpeed() * 1.0 / 1000);
+	sprintf(szMediaSpeedBuffer, "X %.2f", getMusicSpeed() * 1.0 / 1000);
 }
 
 void switch_play_status()
@@ -279,7 +285,7 @@ void switchMusicSpeed()
 	case 1000:
 		setMusicSpeed(1250);
 		break;
-	case 1500:
+	case 1250:
 		setMusicSpeed(800);
 		break;
 	case 800:

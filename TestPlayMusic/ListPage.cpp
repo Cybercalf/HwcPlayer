@@ -15,8 +15,8 @@ void listPage()
 	while (!exit)
 	{
 		system("cls");
-		printList(g_headPtr);
 		showListPage();
+		printList(g_headPtr);
 		switch (_getch())
 		{
 		case '1':
@@ -38,9 +38,8 @@ void listPage()
 				clearList(g_temp_headPtr);
 				system("pause");
 			}
-
 			break;
-		case '6':
+		case '2':
 			switch (loadPathInFolder(g_headPtr))
 			{
 			case 0:
@@ -53,15 +52,9 @@ void listPage()
 				break;
 			}
 			break;
-		// case '2': // print
-		// 	printList(g_headPtr);
-		// 	system("pause");
-		// 	break;
-		case '4':
-			exit = 1;
-			break;
-		case '5':
-			printList(g_headPtr);
+		
+		case '3':
+			// printList(g_headPtr);
 			printf("%s", "请输入你想要删除的文件编号：");
 			scanf("%d", &num);
 			CLEAR_BUF
@@ -75,10 +68,13 @@ void listPage()
 			}
 			system("pause");
 			break;
-		case '7':
+		case '4':
 			clearList(g_headPtr);
-			puts("请检查链表是否清空");
+			puts("清除完成，请检查列表是否清空");
 			system("pause");
+			break;
+		case '5':
+			exit = 1;
 			break;
 		default:
 			break;
@@ -89,11 +85,16 @@ void listPage()
 void showListPage()
 {
 	puts("\n\n"
-		"1. 从选择的文件夹中添加一个文件到播放列表\n"
-		"6. 导入一个文件夹下的音乐文件\n"
-		"5. 删除一个节点\n"
-		"7. 清空节点\n"
-		"4. exit"
+		"\t\t    * * * * * * * * * *           * * * * * * * * * *\n"
+		"\t\t    * * * * * * * *                   * * * * * * * *\n"
+		"\t\t    * * * * * *         音 乐 列 表       * * * * * *\n"
+		"\t\t    * * * * * * * *                   * * * * * * * *\n"
+		"\t\t    * * * * * * * * * *           * * * * * * * * * *\n\n"
+		"\t\t    1. 选择文件夹并添加一个音乐\n"
+		"\t\t    2. 导入一个文件夹下的音乐文件\n"
+		"\t\t    3. 删除列表中的一个音乐\n"
+		"\t\t    4. 清空列表\n"
+		"\t\t    5. 返回\n"
 	);
 }
 
