@@ -10,6 +10,8 @@ char szMediaNameBuffer[1024];
 char szMediaSpeedBuffer[10];
 char isSongMuteBuf[10];
 
+int temp_song_volume = 0;
+
 unsigned int number = 1;
 
 enum PLAY_STATUS play_status = STATUS_PLAY_SEQUENCE;
@@ -335,12 +337,14 @@ void switchSongMute()
 {
 	if (song_mute_status == NOT_MUTE)
 	{
+		temp_song_volume = getSongVolume();
 		setSongMute(true);
 		song_mute_status = MUTE;
 	}
 	else
 	{
 		setSongMute(false);
+		setSongVolume(temp_song_volume);
 		song_mute_status = NOT_MUTE;
 	}
 }
