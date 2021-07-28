@@ -85,7 +85,6 @@ int seekToPosition(int position)
 {
 	char cmd[1000] = "";
 	sprintf(cmd, "seek BackMusic to %d", position);
-	// printf("cmd: %s\n", cmd);
 	return MymciSendString(cmd, NULL);
 }
 

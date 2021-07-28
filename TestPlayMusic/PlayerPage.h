@@ -57,10 +57,10 @@ void playMusicUp();
 void playMusicDown();
 
 // 将当前播放进度倒退10秒左右
-void stepForward10Sec();
-
-// 将当前播放进度快进10秒左右
 void stepBackward10Sec();
+
+// 将当前播放进度前进10秒左右
+void stepForward10Sec();
 
 // 切换当前的播放模式，在以下三种模式间循环切换：
 // 列表循环
