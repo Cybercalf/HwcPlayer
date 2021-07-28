@@ -54,6 +54,8 @@ void setAudioVolume(int audio_volume)
 
 int getAudioVolume()
 {
+	CoInitialize(0);
+	
 	IMMDeviceEnumerator *pDeviceEnumerator = 0;
 	/*The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
 	In the current implementation of the MMDevice API, the only device resources that this interface
@@ -92,10 +94,6 @@ int getAudioVolume()
 		REFIID riid, //创建的Com对象的接口标识符
 		LPVOID * ppv //用来接收指向Com对象接口地址的指针变量
 	);*/
-
-	// 以下是错误临时处理代码
-	if (pDeviceEnumerator == NULL)
-		return 0;
 
 	pDeviceEnumerator->GetDefaultAudioEndpoint(eRender, eMultimedia, &pDevice);
 	pDevice->Activate(__uuidof(IAudioEndpointVolume), CLSCTX_ALL, NULL, (void **)&pAudioEndpointVolume);
