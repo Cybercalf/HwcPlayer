@@ -2,6 +2,7 @@
 #pragma once
 #include "Glue.h"
 
+// 代表三种不同的播放模式
 enum PLAY_STATUS
 {
 	STATUS_PLAY_SEQUENCE = 0,
@@ -9,6 +10,7 @@ enum PLAY_STATUS
 	STATUS_PLAY_RANDOM,
 };
 
+// 代表当前音乐的播放状态
 enum STATUS
 {
 	STATUS_PLAY = 0,
@@ -16,6 +18,7 @@ enum STATUS
 	STATUS_STOPPED,
 };
 
+// 代表当前播放器是否静音
 enum SONG_MUTE_STATUS
 {
 	MUTE = 0,
