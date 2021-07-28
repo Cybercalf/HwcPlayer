@@ -92,11 +92,15 @@ void mediaPlayerPage()
 			break;
 		case 'y':
 		case 'Y':
-			if(play_status == STATUS_PLAY_REPEAT)
+			if (play_status == STATUS_PLAY_REPEAT)
 			{
 				play_status = STATUS_PLAY_SEQUENCE;
 				playMusicDown();
 				play_status = STATUS_PLAY_REPEAT;
+			}
+			else
+			{
+				playMusicDown();
 			}
 			break;
 		case 'u':
@@ -157,14 +161,14 @@ void showMediaPlayerMenu()
 		"\t\t    * * * * * *         音    乐          * * * * * *\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
 	);
-	printf("\t\t    正在播放：         %s\n"
-	       "\t\t    播放状态：         %s\n"
-	       "\t\t    播放模式：         %s\n"
-	       "\t\t    播放速度：         %s\n"
+	printf("\t\t    正在播放：         %-s\n"
+	       "\t\t    播放状态：         %-s\n"
+	       "\t\t    播放模式：         %-s\n"
+	       "\t\t    播放速度：         %-s\n"
 	       , szMediaNameBuffer, szStatusBuffer,
 	       szPlayModeBuffer, szMediaSpeedBuffer);
-	printf("\t\t    当前系统音量    %5d\n"
-	       "\t\t    当前播放器音量     %.1f%%\n"
+	printf("\t\t    当前系统音量       %-5d\n"
+	       "\t\t    当前播放器音量     %-.1f%%\n"
 	       "\t\t    播放器是否静音     [%s]\n\n"
 	       , getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
 	printf("\t\t%s\n\n"

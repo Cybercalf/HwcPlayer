@@ -32,7 +32,6 @@ OOOOOOOOOO^  /O. ,OOOOO` .]=OOO..        OOOOO^   .[OO/.         =OO@@@@@@@@OOOO
  \___|_  /  \/\_/  \___  >____|   |____(____  / ____|\___  >__|   
        \/              \/                   \/\/         \/       
 
-
 "@@@@@@@@@@@@@@@@@@@@OOOOOOOOOOOOOOOOOOO/[[[[[OOOOOOOOOOOOOOOOOOOOOOOOOOO@@OO@@@@@@@@@@@@@@@@@@@@@@@\n"
 		"@@@@@@@@@@@@@@@@@@@@OOOOOOOO/[.                              ,[OOOOOOOOOOOOO@@@@@@@@@@@@@@@@@@@@@@@\n"
 		"@@@@@@@@@@@@@@@OOOOOOO/[       .]]OOOOOOOOOOOOOOOOOOOOOOOOOOO]].    .[[OOOOOOOOO@OO@@@@@@@@@@@@@@@@\n"
@@ -47,8 +46,8 @@ OOOOOOOOOO^  /O. ,OOOOO` .]=OOO..        OOOOO^   .[OO/.         =OO@@@@@@@@OOOO
 		"@OOOO/`    ,]/`     /OOO.                 ,[[OOOOOOOOOOOO ^       =OOO@@OOOOOO`                 ,OO\n"
 		"OOO`.]/OOOOO   /  .OOOO/   ....*          ,]]    ,\\OOOOOO/         =OO@@@@@OOOOO`            ./OOOO\n"
 		"OOOOOOOOOO ^ /O. ,OOOOO` .]=OOO..       OOOOO ^    .[OO/.          =OO@@@@@@@@OOOO`       ,/OOOO@OO\n"
-		"@@@@OOOO/  ,OO   ,OOOOOO =OOOOOO.       ,OOOO`      ,]]/OOO\     = OO@@@@@@@@OOOOOO`  .]/OOOO@@@@@@\n"
-		"@@@@OOOO`/OO/  /OOOOOOO  \OOOOOOO.                 oOOOOOOOO     =OO@@@@@@@@OOOOOOOOOOOOOO@O@@@@@@@\n"
+		"@@@@OOOO/  ,OO   ,OOOOOO =OOOOOO.       ,OOOO`      ,]]/OOO\      = OO@@@@@@@@OOOOOO`  .]/OOOO@@@@@@\n"
+		"@@@@OOOO`/OO/  /OOOOOOO  \OOOOOOO.                 oOOOOOOOO      =OO@@@@@@@@OOOOOOOOOOOOOO@O@@@@@@@\n"
 		"@@@@OOOOOOO` .OOOOOOOOO. =OOO@OOO.              .OOOO@@@OO^      /OO@@@@@@@@@@@@@@@@OOOO@@@@@@@@@@@\n"
 		"@@@@OOOOO` ./OOO@@@@OOO` .OOOOOOO\\              ,OOOOO@@@OO^    .OOO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
 		"@@@@OOO`  ,OOOOOO@@@@OOOO   =OOOOOOO`         /OO@@@@OOOOO`     /OOO@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"

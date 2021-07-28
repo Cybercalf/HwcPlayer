@@ -6,7 +6,6 @@ Media* createMedia(const char* path)
 	long handle = _findfirst(path, musicInfo);
 	if (handle == -1)
 	{
-		//找到文件，并将信息存储在结构体_finddata_t中
 		return NULL; //未找到文件则返回NULL
 	}
 	else
@@ -30,7 +29,7 @@ Media* createMedia(const char* path)
 		mciSendString("status song length", lengthOfTime, 1024, NULL);
 		newMedia->length = atoi(lengthOfTime) / 1000;
 		// 如果找到的音频文件时长为0，则不能创建它，直接返回NULL
-		if(newMedia->length==0)
+		if (newMedia->length == 0)
 		{
 			free(newMedia);
 			return NULL;
@@ -56,8 +55,12 @@ MediaNodePtr createNode(const char* path)
 		newNodePtr->media = *tempMediaPtr; // 把Media信息传给新建的节点
 		return newNodePtr;
 	}
-	else return NULL;
-	
+	else
+	{
+		if (newNodePtr != NULL) free(newNodePtr);
+		if (tempMediaPtr != NULL) free(tempMediaPtr);
+		return NULL;
+	}
 }
 
 MediaNodePtr createList()
@@ -128,7 +131,7 @@ const char* getMediaNameByNumber(MediaNodePtr startPtr, unsigned int num)
 	}
 	// 如果没找到
 	if (pMove == NULL) return "\0";
-	// 如果找到了
+		// 如果找到了
 	else
 	{
 		strcpy_s(tempName, sizeof(char) * NAME_LENGTH, pMove->media.name);
@@ -239,7 +242,7 @@ void printList(MediaNodePtr& startPtr)
 			sprintf_s(length, "%d分%d秒", minutes, seconds);
 			// 打印
 			printf("\t\t    %-8d%-20s%-10s%-40s\n",
-				pMove->number, pMove->media.name, length, pMove->media.path);
+			       pMove->number, pMove->media.name, length, pMove->media.path);
 			// 去打印下一个节点
 			pMove = pMove->next;
 		}
