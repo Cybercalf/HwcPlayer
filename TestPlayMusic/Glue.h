@@ -31,4 +31,7 @@
 		}                                             \
 	}
 
+#define NAME_LENGTH 200
+#define PATH_LENGTH 500
+
 #endif

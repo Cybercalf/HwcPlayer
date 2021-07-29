@@ -1,6 +1,7 @@
 ﻿// Media.h：媒体交互基本函数
 #pragma once
 #include "Glue.h"
+#include "Lrc.h"
 
 // 代表三种不同的播放模式
 enum PLAY_STATUS
@@ -34,7 +35,7 @@ enum SONG_MUTE_STATUS
 //
 int MymciSendString(const char *szCommand, char *szbuffer);
 
-// 调用MCI接口打开文件，成功返回0，不成功返回非0
+// 调用MCI接口打开文件，同时将相应的.lrc文件加载到歌词链表中
 // 参数：
 // path：文件路径
 // 返回值：
@@ -70,13 +71,13 @@ int seekToPosition(int position);
 
 // 调用MCI接口获取当前播放位置
 // 返回值：
-// int，当前播放的位置
+// int，当前播放的位置，单位为毫秒
 //
 int getMusicCurrentPosition();
 
 // 调用MCI接口获取当前音乐的总播放时长
 // 返回值：
-// int，当前音乐的总播放时长
+// int，当前音乐的总播放时长，单位为毫秒
 //
 int getMusicLength();
 

@@ -4,14 +4,11 @@
 #define LIST_H
 #include "Glue.h"
 
-#define NAME_LENGTH 200
-#define PATH_LENGTH 500
-
 typedef struct
 {
 	char name[NAME_LENGTH]; //歌名(文件名） 更详细的歌曲信息需要读取mp3文件的IDv2标签
 	char path[PATH_LENGTH]; //绝对路径
-	char short_path[PATH_LENGTH];
+	char short_path[PATH_LENGTH]; // 短路径
 	int length;				//时长
 } Media;
 

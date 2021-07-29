@@ -20,11 +20,14 @@ int openMusic(const char* path)
 {
 	if (path != NULL)
 	{
+		clearLrcList(); // 清空歌词链表，为之后加载做准备
+		char lrcpath[PATH_LENGTH] = ""; // 要打开的歌词文件路径
+		sprintf(lrcpath, "%s.lrc", path); // 初始化歌词文件路径
+		loadIrcList(lrcpath);
 		char cmd[1000] = "";
 		strcpy_s(cmd, "open ");
 		strcat_s(cmd, path);
 		strcat_s(cmd, " alias BackMusic");
-		// printf("cmd: %s\n", cmd);
 		return MymciSendString(cmd, NULL);
 	}
 	return -1;

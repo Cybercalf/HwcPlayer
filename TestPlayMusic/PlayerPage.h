@@ -6,6 +6,7 @@
 #include "ListPage.h"
 #include "Media.h"
 #include "Volume.h"
+#include "Lrc.h"
 
 // 展示播放器页面，同时承担页面交互
 // 交互功能：

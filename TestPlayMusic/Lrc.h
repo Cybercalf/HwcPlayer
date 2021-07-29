@@ -1,0 +1,39 @@
+﻿#pragma once
+#include "Glue.h"
+
+// 一句歌词
+typedef struct lrc
+{
+	int time; // 歌词对应的时间，单位是秒
+	char buf[200]; // 歌词
+} Lrc;
+
+// 一句歌词的节点
+typedef struct lrcnode
+{
+	Lrc lrc;
+	struct lrcnode* next;
+} LrcNode;
+
+typedef LrcNode* LrcNodePtr;
+
+extern LrcNodePtr g_lrc_head_ptr;
+
+// 创建歌词链表，返回链表的表头
+LrcNodePtr createLrcList();
+
+// 向歌词链表中追加一个节点
+void appendLrcNode(Lrc lrc);
+
+// 打开一个.lrc文件，并将其信息加载到歌词链表中
+// 成功返回0，不成功返回非0
+int loadIrcList(const char* filename);
+
+// 清空歌词链表
+void clearLrcList();
+
+// 检测歌词链表是否为空
+bool isLrcListEmpty();
+
+// 接收一个整数作为时间，返回指定歌词节点的字符串，如果没找到返回"\0"
+const char* getLrcByTime(int time);

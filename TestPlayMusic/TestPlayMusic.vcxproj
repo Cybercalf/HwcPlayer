@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="File.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="Lrc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainPage.cpp" />
     <ClCompile Include="Media.cpp" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="File.h" />
     <ClInclude Include="Glue.h" />
+    <ClInclude Include="Lrc.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MainPage.h" />
     <ClInclude Include="List.h" />
