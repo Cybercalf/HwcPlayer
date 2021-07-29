@@ -15,12 +15,13 @@ Media *createMedia(const char *path)
 		// 初始化Media结构体中的参数
 		strcpy_s(newMedia->name, sizeof(newMedia->name), musicInfo->name);
 		strcpy_s(newMedia->path, sizeof(newMedia->path), path);
+		GetShortPathName(newMedia->path, newMedia->short_path, sizeof(newMedia->short_path));
 
 		// 通过在windows中打开对应的文件，来获取对应音频文件的有关信息
 		char lengthOfTime[1024] = "";
 		char cmd[1000] = "";
 		strcpy_s(cmd, "open ");
-		strcat_s(cmd, path);
+		strcat_s(cmd, newMedia->short_path);
 		strcat_s(cmd, " alias song");
 
 		//打开文件
@@ -82,7 +83,7 @@ int isListEmpty(MediaNodePtr startPtr)
 	return startPtr->next == NULL;
 }
 
-const char *getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
+const char *getNodeShortPathByNumber(MediaNodePtr startPtr, unsigned int number)
 {
 	if (number <= 0)
 		return "\0";
@@ -100,7 +101,7 @@ const char *getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
 	// 如果找到了
 	else
 	{
-		strcpy_s(tempPath, sizeof(char) * PATH_LENGTH, pMove->media.path);
+		strcpy_s(tempPath, sizeof(char) * PATH_LENGTH, pMove->media.short_path);
 	}
 	return (const char *)tempPath;
 }
@@ -239,7 +240,7 @@ void printList(MediaNodePtr &startPtr)
 	}
 	else
 	{
-		printf("\t\t    %-8s%-20s%-10s%-40s\n", "编号", "歌名", "时长", "路径");
+		printf("\t\t    %-8s%-30s%-10s%-40s\n", "编号", "歌名", "时长", "路径");
 		// 打印要从第一个有意义的节点开始，链表的头不存储媒体信息，所以打印要从头后面连接的第一个节点开始
 		MediaNodePtr pMove = startPtr->next;
 		int minutes = 0, seconds = 0;
@@ -252,7 +253,7 @@ void printList(MediaNodePtr &startPtr)
 			char length[100] = "";
 			sprintf_s(length, "%d分%d秒", minutes, seconds);
 			// 打印
-			printf("\t\t    %-8d%-20s%-10s%-40s\n",
+			printf("\t\t    %-8d%-30s%-10s%-40s\n",
 				   pMove->number, pMove->media.name, length, pMove->media.path);
 			// 去打印下一个节点
 			pMove = pMove->next;

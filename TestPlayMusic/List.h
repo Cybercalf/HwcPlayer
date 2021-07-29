@@ -11,6 +11,7 @@ typedef struct
 {
 	char name[NAME_LENGTH]; //歌名(文件名） 更详细的歌曲信息需要读取mp3文件的IDv2标签
 	char path[PATH_LENGTH]; //绝对路径
+	char short_path[PATH_LENGTH];
 	int length;				//时长
 } Media;
 
@@ -39,8 +40,8 @@ MediaNodePtr createList();
 // return 1 if yes, 0 if no
 int isListEmpty(MediaNodePtr startPtr);
 
-// 接收一个节点编号，返回对应节点的路径
-const char *getNodePathByNumber(MediaNodePtr startPtr, unsigned int number);
+// 接收一个节点编号，返回对应节点的短路径
+const char *getNodeShortPathByNumber(MediaNodePtr startPtr, unsigned int number);
 
 // 接收一个节点路径，返回对应节点的编号
 unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char *path);

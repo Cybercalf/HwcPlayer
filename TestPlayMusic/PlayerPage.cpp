@@ -21,7 +21,7 @@ void playerPage()
 {
 	// 结束程序的标志
 	int exit = 0;
-	openMusic(getNodePathByNumber(g_headPtr, number));
+	openMusic(getNodeShortPathByNumber(g_headPtr, number));
 	while (exit == 0)
 	{
 		while (!_kbhit())
@@ -38,7 +38,7 @@ void playerPage()
 		switch (_getch())
 		{
 		case 'p':
-		case 'P':
+		case 'P': // 播放与暂停
 			if (status == STATUS_STOPPED)
 			{
 				playMusic();
@@ -57,11 +57,11 @@ void playerPage()
 			break;
 
 		case 'd':
-		case 'D':
+		case 'D': // 切换播放模式
 			switch_play_status();
 			break;
 		case 'j':
-		case 'J':
+		case 'J': // 跳转到指定曲目
 			printList(g_headPtr);
 			printf("%s\n", "请输入你想跳转的音乐编号：");
 			int temp_num;
@@ -71,7 +71,7 @@ void playerPage()
 			{
 				number = temp_num;
 				closeMusic();
-				openMusic(getNodePathByNumber(g_headPtr, number));
+				openMusic(getNodeShortPathByNumber(g_headPtr, number));
 				playMusic();
 			}
 			else
@@ -85,7 +85,8 @@ void playerPage()
 			playMusicUp();
 			break;
 		case 'y':
-		case 'Y':
+		case 'Y': // 播放下一首
+			// 当播放模式为单曲循环时，需要临时更改它以便播放列表的下一首
 			if (play_mode == STATUS_PLAY_REPEAT)
 			{
 				play_mode = STATUS_PLAY_SEQUENCE;
@@ -143,6 +144,7 @@ void playerPage()
 void showPlayerPage()
 {
 	system("cls");
+	// 把要输出的信息存储在不同的字符串中
 	loadProcessBar(getMusicCurrentPosition(), getMusicLength());
 	loadStatus();
 	loadPlayStatus();
@@ -178,6 +180,7 @@ void showPlayerPage()
 void loadProcessBar(int nowTime, int musicTime)
 {
 	int pos;
+	// 时间单位为毫秒，所以需要先转成秒
 	pos = sprintf(processBarBuf,
 				  "%02d:%02d ",
 				  nowTime / 60000 % 100,
@@ -268,7 +271,7 @@ void playMusicUp()
 	number -= 1;
 	if (number <= 0)
 		number = getLength(g_headPtr);
-	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0)
+	if (openMusic(getNodeShortPathByNumber(g_headPtr, number)) == 0)
 		playMusic();
 	return;
 }
@@ -290,7 +293,7 @@ void playMusicDown()
 		number = rand() % getLength(g_headPtr) + 1;
 		break;
 	}
-	if (openMusic(getNodePathByNumber(g_headPtr, number)) == 0)
+	if (openMusic(getNodeShortPathByNumber(g_headPtr, number)) == 0)
 		playMusic();
 	return;
 }

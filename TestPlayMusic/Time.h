@@ -7,7 +7,7 @@ int getCurrentYear();
 int getCurrentMonth();
 // 获取当前天数
 int getCurrentDay();
-// 获取当前小时数
+// 获取当前小时数（北京时间）
 int getCurrentHour();
 // 获取当前分钟数
 int getCurrentMinute();
