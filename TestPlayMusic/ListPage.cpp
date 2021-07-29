@@ -27,7 +27,7 @@ void listPage()
 				printf("%s", "输入你想添加的音乐编号：");
 				scanf("%d", &num);
 				CLEAR_BUF
-				if (0 == appendNode(g_headPtr, getNodeShortPathByNumber(g_temp_headPtr, num)))
+				if (0 == appendNode(g_headPtr, getNodePathByNumber(g_temp_headPtr, num)))
 				{
 					puts("添加成功");
 				}

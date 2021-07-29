@@ -15,6 +15,7 @@ Media *createMedia(const char *path)
 		// 初始化Media结构体中的参数
 		strcpy_s(newMedia->name, sizeof(newMedia->name), musicInfo->name);
 		strcpy_s(newMedia->path, sizeof(newMedia->path), path);
+		
 		GetShortPathName(newMedia->path, newMedia->short_path, sizeof(newMedia->short_path));
 
 		// 通过在windows中打开对应的文件，来获取对应音频文件的有关信息
@@ -106,6 +107,47 @@ const char *getNodeShortPathByNumber(MediaNodePtr startPtr, unsigned int number)
 	return (const char *)tempPath;
 }
 
+const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number)
+{
+	if (number <= 0)
+		return "\0";
+	char* tempPath = (char*)malloc(sizeof(char) * PATH_LENGTH);
+	memset(tempPath, '\0', sizeof(tempPath));
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && pMove->number != number)
+	{
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL)
+		return "\0";
+	// 如果找到了
+	else
+	{
+		strcpy_s(tempPath, sizeof(char) * PATH_LENGTH, pMove->media.path);
+	}
+	return (const char*)tempPath;
+}
+
+unsigned int getNodeNumberByShortPath(MediaNodePtr startPtr, const char* short_path)
+{
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && strcmp(short_path, pMove->media.short_path) != 0)
+	{
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL)
+		return 0;
+	// 如果找到了
+	else
+	{
+		return pMove->number;
+	}
+}
+
 unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char *path)
 {
 	MediaNodePtr pMove = startPtr->next;
@@ -121,6 +163,24 @@ unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char *path)
 	else
 	{
 		return pMove->number;
+	}
+}
+
+const char * getNodePathByShortPath(MediaNodePtr startPtr, const char* short_path)
+{
+	MediaNodePtr pMove = startPtr->next;
+	// 寻找对应节点
+	while (pMove != NULL && strcmp(short_path, pMove->media.short_path) != 0)
+	{
+		pMove = pMove->next;
+	}
+	// 如果没找到
+	if (pMove == NULL)
+		return "\0";
+	// 如果找到了
+	else
+	{
+		return pMove->media.path;
 	}
 }
 

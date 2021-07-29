@@ -27,6 +27,7 @@
     <ClCompile Include="Media.cpp" />
     <ClCompile Include="PlayerPage.cpp" />
     <ClCompile Include="ListPage.cpp" />
+    <ClCompile Include="TextColor.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Volume.cpp" />
   </ItemGroup>
@@ -40,6 +41,7 @@
     <ClInclude Include="Media.h" />
     <ClInclude Include="PlayerPage.h" />
     <ClInclude Include="ListPage.h" />
+    <ClInclude Include="TextColor.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>

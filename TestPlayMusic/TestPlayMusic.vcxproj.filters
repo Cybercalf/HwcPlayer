@@ -45,6 +45,9 @@
     <ClCompile Include="Lrc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TextColor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -78,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Lrc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TextColor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

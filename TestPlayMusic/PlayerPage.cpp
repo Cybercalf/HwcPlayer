@@ -8,6 +8,7 @@ char szPlayStatusBuf[1024];
 char szMediaNameBuf[1024];
 char szMediaSpeedBuf[10];
 char isSongMuteBuf[10];
+char lrcBuf[200];
 
 int temp_song_volume = 0;
 
@@ -21,7 +22,7 @@ void playerPage()
 {
 	// 结束程序的标志
 	int exit = 0;
-	openMusic(getNodeShortPathByNumber(g_headPtr, number));
+	openMusicByShortPath(getNodeShortPathByNumber(g_headPtr, number));
 	while (exit == 0)
 	{
 		while (!_kbhit())
@@ -71,7 +72,7 @@ void playerPage()
 			{
 				number = temp_num;
 				closeMusic();
-				openMusic(getNodeShortPathByNumber(g_headPtr, number));
+				openMusicByShortPath(getNodeShortPathByNumber(g_headPtr, number));
 				playMusic();
 			}
 			else
@@ -145,54 +146,65 @@ void showPlayerPage()
 {
 	system("cls");
 	// 把要输出的信息存储在不同的字符串中
-	loadProcessBar(getMusicCurrentPosition(), getMusicLength());
-	loadStatus();
-	loadPlayStatus();
-	loadMediaName();
-	loadMediaSpeed();
-	loadIsSongMute();
+	loadProcessBarBuf(getMusicCurrentPosition(), getMusicLength());
+	loadStatusBuf();
+	loadPlayStatusBuf();
+	loadMediaNameBuf();
+	loadMediaSpeedBuf();
+	loadIsSongMuteBuf();
+	loadLrcBuf();
 
-	LrcNodePtr pMove = g_lrc_head_ptr->next;
-	while (pMove != NULL)
-	{
-		printf("%d %s\n", pMove->lrc.time, pMove->lrc.buf);
-		pMove = pMove->next;
-	}
-	
+	// printf("%s\n", lrcBuf);
+	//
+	// LrcNodePtr pMove = g_lrc_head_ptr->next;
+	// while (pMove != NULL)
+	// {
+	// 	printf("%d %s\n", pMove->lrc.time, pMove->lrc.buf);
+	// 	pMove = pMove->next;
+	// }
+
 	puts(
 		"\n\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"
 		"\t\t    * * * * * *         音    乐          * * * * * *\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n");
+	
 	printf("\t\t    正在播放：         %-s\n"
-		   "\t\t    播放状态：         %-s\n"
-		   "\t\t    播放模式：         %-s\n"
-		   "\t\t    播放速度：         %-s\n",
-		   szMediaNameBuf, szStatusBuf,
-		   szPlayStatusBuf, szMediaSpeedBuf);
+	       "\t\t    播放状态：         %-s\n"
+	       "\t\t    播放模式：         %-s\n"
+	       "\t\t    播放速度：         %-s\n",
+	       szMediaNameBuf, szStatusBuf,
+	       szPlayStatusBuf, szMediaSpeedBuf);
+	
 	printf("\t\t    当前系统音量       %-5d\n"
-		   "\t\t    当前播放器音量     %-.1f%%\n"
-		   "\t\t    播放器是否静音     [%s]\n\n",
-		   getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
-	printf("\t\t%s\n\n"
-		   "\t\t       [ P ]  播放/暂停        [ D ]  切换播放模式\n"
-		   "\t\t       [ J ]  跳转到指定曲目   [ S ]  调整倍速\n"
-		   "\t\t       [ T ]  上一曲           [ Y ]  下一曲\n"
-		   "\t\t       [ U ]  快退10秒         [ I ]  快进10秒\n"
-		   "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
-		   "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
-		   "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n",
-		   processBarBuf);
+	       "\t\t    当前播放器音量     %-.1f%%\n"
+	       "\t\t    播放器是否静音     [%s]\n\n",
+	       getAudioVolume(), getSongVolume() / 10.0, isSongMuteBuf);
+
+	setConsoleTextColor(FORE_BRIGHT_CYAN);
+	printf("\t\t    %s\n\n", lrcBuf);
+
+	setConsoleTextColor(FORE_WHITE);
+	printf("\t\t    %s\n\n", processBarBuf);
+	
+	printf("\t\t       [ P ]  播放/暂停        [ D ]  切换播放模式\n"
+	       "\t\t       [ J ]  跳转到指定曲目   [ S ]  调整倍速\n"
+	       "\t\t       [ T ]  上一曲           [ Y ]  下一曲\n"
+	       "\t\t       [ U ]  快退10秒         [ I ]  快进10秒\n"
+	       "\t\t       [ - ]  减小系统音量     [ + ]  增大系统音量\n"
+	       "\t\t       [ 8 ]  减小播放器音量   [ 9 ]  增大播放器音量\n"
+	       "\t\t       [ M ]  静音/取消静音    [ Q ]  返回\n"
+	);
 }
 
-void loadProcessBar(int nowTime, int musicTime)
+void loadProcessBarBuf(int nowTime, int musicTime)
 {
 	int pos;
 	// 时间单位为毫秒，所以需要先转成秒
 	pos = sprintf(processBarBuf,
-				  "%02d:%02d ",
-				  nowTime / 60000 % 100,
-				  nowTime / 1000 % 60);
+	              "%02d:%02d ",
+	              nowTime / 60000 % 100,
+	              nowTime / 1000 % 60);
 	if (musicTime == 0)
 	{
 		for (int i = 0; i < 50; i++)
@@ -213,12 +225,12 @@ void loadProcessBar(int nowTime, int musicTime)
 		}
 	}
 	pos += sprintf(processBarBuf + pos,
-				   " %02d:%02d",
-				   musicTime / 60000 % 100,
-				   musicTime / 1000 % 60);
+	               " %02d:%02d",
+	               musicTime / 60000 % 100,
+	               musicTime / 1000 % 60);
 }
 
-void loadStatus()
+void loadStatusBuf()
 {
 	MymciSendString("status BackMusic mode", szStatusBuf);
 	if (strcmp(szStatusBuf, "paused") == 0)
@@ -229,7 +241,7 @@ void loadStatus()
 		status = STATUS_PLAY;
 }
 
-void loadPlayStatus()
+void loadPlayStatusBuf()
 {
 	switch (play_mode)
 	{
@@ -247,14 +259,40 @@ void loadPlayStatus()
 	}
 }
 
-void loadMediaName()
+void loadMediaNameBuf()
 {
 	sprintf(szMediaNameBuf, "%s", getMediaNameByNumber(g_headPtr, number));
 }
 
-void loadMediaSpeed()
+void loadMediaSpeedBuf()
 {
 	sprintf(szMediaSpeedBuf, "X %.2f", getMusicSpeed() * 1.0 / 1000);
+}
+
+void loadIsSongMuteBuf()
+{
+	if (song_mute_status == MUTE)
+		sprintf(isSongMuteBuf, "%s", "是\0");
+	else
+		sprintf(isSongMuteBuf, "%s", "否\0");
+}
+
+void loadLrcBuf()
+{
+	if (isLrcListEmpty()) // 如果歌词链表为空，说明加载歌词失败
+	{
+		memset(lrcBuf, '\0', sizeof(lrcBuf));
+		sprintf(lrcBuf, "%s", "未找到歌词，请欣赏\0");
+	}
+	else
+	{
+		const char* tempstr = getLrcByTime(getMusicCurrentPosition() / 1000); // 除以1000是为了把毫秒单位转为秒
+		if (0 != strcmp(tempstr, "\0")) // 如果getLrcByTime未返回0，说明获取歌词成功
+		{
+			memset(lrcBuf, '\0', sizeof(lrcBuf));
+			sprintf(lrcBuf, "%s", tempstr);
+		}
+	}
 }
 
 void switch_play_status()
@@ -279,7 +317,7 @@ void playMusicUp()
 	number -= 1;
 	if (number <= 0)
 		number = getLength(g_headPtr);
-	if (openMusic(getNodeShortPathByNumber(g_headPtr, number)) == 0)
+	if (openMusicByShortPath(getNodeShortPathByNumber(g_headPtr, number)) == 0)
 		playMusic();
 	return;
 }
@@ -301,7 +339,7 @@ void playMusicDown()
 		number = rand() % getLength(g_headPtr) + 1;
 		break;
 	}
-	if (openMusic(getNodeShortPathByNumber(g_headPtr, number)) == 0)
+	if (openMusicByShortPath(getNodeShortPathByNumber(g_headPtr, number)) == 0)
 		playMusic();
 	return;
 }
@@ -342,13 +380,6 @@ void switchMusicSpeed()
 	}
 }
 
-void loadIsSongMute()
-{
-	if (song_mute_status == MUTE)
-		sprintf(isSongMuteBuf, "%s", "是\0");
-	else
-		sprintf(isSongMuteBuf, "%s", "否\0");
-}
 
 void switchSongMute()
 {

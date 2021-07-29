@@ -35,5 +35,5 @@ void clearLrcList();
 // 检测歌词链表是否为空
 bool isLrcListEmpty();
 
-// 接收一个整数作为时间，返回指定歌词节点的字符串，如果没找到返回"\0"
+// 接收一个整数作为时间(单位为秒），返回指定歌词节点的字符串，如果没找到返回"\0"
 const char* getLrcByTime(int time);

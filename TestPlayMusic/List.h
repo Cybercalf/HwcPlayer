@@ -40,8 +40,17 @@ int isListEmpty(MediaNodePtr startPtr);
 // 接收一个节点编号，返回对应节点的短路径
 const char *getNodeShortPathByNumber(MediaNodePtr startPtr, unsigned int number);
 
+// 接收一个节点编号，返回对应节点的路径
+const char* getNodePathByNumber(MediaNodePtr startPtr, unsigned int number);
+
+// 接收一个节点短路径，返回对应节点的编号
+unsigned int getNodeNumberByShortPath(MediaNodePtr startPtr, const char* short_path);
+
 // 接收一个节点路径，返回对应节点的编号
 unsigned int getNodeNumberByPath(MediaNodePtr startPtr, const char *path);
+
+// 接收一个节点短路径，返回对应节点的路径
+const char * getNodePathByShortPath(MediaNodePtr startPtr, const char* short_path);
 
 // 根据文件位置生成一个Media结构体和与之对应的节点，把它添加到链表末尾
 // return 0 if success, not 0 if fail

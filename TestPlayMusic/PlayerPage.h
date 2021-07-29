@@ -7,6 +7,7 @@
 #include "Media.h"
 #include "Volume.h"
 #include "Lrc.h"
+#include "TextColor.h"
 
 // 展示播放器页面，同时承担页面交互
 // 交互功能：
@@ -36,20 +37,31 @@ void showPlayerPage();
 // nowTime：当前已播放的时间
 // musicTime：播放总时间
 //
-void loadProcessBar(int nowTime, int musicTime);
+void loadProcessBarBuf(int nowTime, int musicTime);
 
 // 获取当前播放状态，并存储在全局变量szStatusBuf中
 //
-void loadStatus();
+void loadStatusBuf();
 
 // 获取当前播放模式，并存储在全局变量szPlayStatusBuf中
-void loadPlayStatus();
+void loadPlayStatusBuf();
 
 // 获取当前播放的音乐名，并存储在全局变量szMediaNameBuf中
-void loadMediaName();
+void loadMediaNameBuf();
 
 // 获取当前播放速度，并存储在全局变量szMediaSpeedBuf中
-void loadMediaSpeed();
+void loadMediaSpeedBuf();
+
+// 获取当前播放器是否静音，将状态存储在全局变量isSongMuteBuf中
+void loadIsSongMuteBuf();
+
+// 用到PlayerPage.cpp一个全局变量lrcBuf
+// 首先检查歌词链表是否为空，如果为空，向lrcBuf添加提示信息；
+// 如果不为空（歌词加载成功），检查当前播放时间是否有一句对应的歌词
+// 如果有，将歌词存储在lrcBuf中
+// 如果没有，不改变lrcBuf的内容
+//
+void loadLrcBuf();
 
 // 播放列表的上一首歌，可以循环
 void playMusicUp();
@@ -77,8 +89,6 @@ void switch_play_status();
 //
 void switchMusicSpeed();
 
-// 获取当前播放器是否静音，将状态存储在全局变量isSongMuteBuf中
-void loadIsSongMute();
 
 // 将播放器在静音与非静音间切换
 // 如果从非静音切换到静音，会先将当前播放音量存储在全局变量temp_song_volume中

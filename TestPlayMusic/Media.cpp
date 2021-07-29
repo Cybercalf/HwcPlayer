@@ -1,7 +1,6 @@
 ﻿#include "Media.h"
 using namespace std;
 
-// 调用MCI接口对音乐文件进行操作，成功返回0，不成功返回非0
 int MymciSendString(const char* szCommand, char* szbuffer)
 {
 	if (NULL == szbuffer)
@@ -16,19 +15,25 @@ int MymciSendString(const char* szCommand, char* szbuffer)
 	}
 }
 
-int openMusic(const char* path)
+int openMusicByShortPath(const char* short_path)
 {
-	if (path != NULL)
+	if (short_path != NULL)
 	{
-		clearLrcList(); // 清空歌词链表，为之后加载做准备
-		char lrcpath[PATH_LENGTH] = ""; // 要打开的歌词文件路径
-		sprintf(lrcpath, "%s.lrc", path); // 初始化歌词文件路径
-		loadIrcList(lrcpath);
 		char cmd[1000] = "";
 		strcpy_s(cmd, "open ");
-		strcat_s(cmd, path);
+		strcat_s(cmd, short_path);
 		strcat_s(cmd, " alias BackMusic");
-		return MymciSendString(cmd, NULL);
+		if(0== MymciSendString(cmd, NULL)) // 如果打开音乐成功，就可以尝试加载歌词文件了
+		{
+			clearLrcList(); // 清空歌词链表，为之后加载做准备
+			char lrcpath[PATH_LENGTH] = ""; // 要打开的歌词文件路径
+			// 先根据传入的短路径转换成路径，然后用它来初始化歌词文件路径
+			sprintf(lrcpath, "%s.lrc",
+				getNodePathByShortPath(g_headPtr, short_path));
+			loadIrcList(lrcpath);
+
+			return 0; // 如果打开音乐成功，无论加载歌词成功与否，都要返回0。歌词加载成功与否，可以通过检查歌词链表是否为空实现
+		}
 	}
 	return -1;
 }

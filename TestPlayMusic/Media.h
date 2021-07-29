@@ -2,6 +2,8 @@
 #pragma once
 #include "Glue.h"
 #include "Lrc.h"
+#include "List.h"
+#include "ListPage.h"
 
 // 代表三种不同的播放模式
 enum PLAY_STATUS
@@ -32,16 +34,15 @@ enum SONG_MUTE_STATUS
 // szbuffer：缓存字符串，如果不需要可以取NULL
 // 返回值：
 // int，成功返回0，不成功返回非0
-//
 int MymciSendString(const char *szCommand, char *szbuffer);
 
-// 调用MCI接口打开文件，同时将相应的.lrc文件加载到歌词链表中
+// 调用MCI接口根据短路径打开文件，同时将相应的.lrc文件加载到歌词链表中
 // 参数：
 // path：文件路径
 // 返回值：
 // int，成功返回0，不成功返回非0
 //
-int openMusic(const char *path);
+int openMusicByShortPath(const char *short_path);
 
 // 调用MCI接口关闭文件，成功返回0，不成功返回非0
 int closeMusic();
