@@ -38,7 +38,7 @@ int MymciSendString(const char *szCommand, char *szbuffer);
 
 // 调用MCI接口根据短路径打开文件，同时将相应的.lrc文件加载到歌词链表中
 // 参数：
-// path：文件路径
+// short_path：文件短路径
 // 返回值：
 // int，成功返回0，不成功返回非0
 //

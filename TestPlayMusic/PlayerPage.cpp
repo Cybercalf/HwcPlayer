@@ -154,15 +154,6 @@ void showPlayerPage()
 	loadIsSongMuteBuf();
 	loadLrcBuf();
 
-	// printf("%s\n", lrcBuf);
-	//
-	// LrcNodePtr pMove = g_lrc_head_ptr->next;
-	// while (pMove != NULL)
-	// {
-	// 	printf("%d %s\n", pMove->lrc.time, pMove->lrc.buf);
-	// 	pMove = pMove->next;
-	// }
-
 	puts(
 		"\n\n"
 		"\t\t    * * * * * * * *                   * * * * * * * *\n"

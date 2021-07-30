@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿// TextColor.h：存储有关控制台文本颜色操作的函数和相关参数
+#pragma once
 #include "Glue.h"
 /*
 基本文本属性
@@ -35,5 +36,3 @@ const WORD FORE_BRIGHT_CYAN = FORE_BLUE | FORE_GREEN | FOREGROUND_INTENSITY; // 
 
 // 设置控制台标准输出的字体颜色
 void setConsoleTextColor(WORD fore_color);
-
-
