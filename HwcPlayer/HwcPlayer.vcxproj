@@ -28,7 +28,7 @@
     <ClCompile Include="PlayerPage.cpp" />
     <ClCompile Include="ListPage.cpp" />
     <ClCompile Include="TextColor.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="MyTime.cpp" />
     <ClCompile Include="Volume.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,7 +42,7 @@
     <ClInclude Include="PlayerPage.h" />
     <ClInclude Include="ListPage.h" />
     <ClInclude Include="TextColor.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="MyTime.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>
   <ItemGroup>
