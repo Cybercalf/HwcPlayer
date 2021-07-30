@@ -45,10 +45,13 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="test.dat" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8B9DAEAE-B386-4AE0-B145-CCF59555DB2C}</ProjectGuid>
-    <RootNamespace>TestPlayMusic</RootNamespace>
+    <RootNamespace>HwcPlayer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>HwcPlayer</ProjectName>
   </PropertyGroup>

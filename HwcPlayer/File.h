@@ -2,7 +2,8 @@
 #pragma once
 #include "Glue.h"
 #include "List.h"
-#define LIST_FILE_NAME "test.dat"
+// 存储播放列表的文件名
+#define LIST_FILE_NAME "Playlist.dat"
 
 // 将指定链表的信息以二进制形式存储在指定的文件中，如果文件不存在会被创建，已存在则会先删除后创建
 // 参数：
