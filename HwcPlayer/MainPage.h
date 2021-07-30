@@ -1,5 +1,4 @@
 ﻿// MainMenu.h: 首页（主菜单）页面
-#include "File.h"
 #include "Glue.h"
 #include "ListPage.h"
 #include "PlayerPage.h"
