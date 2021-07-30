@@ -31,7 +31,8 @@ int openMusicByShortPath(const char* short_path)
 			int pos = sprintf(lrcpath, "%s",
 			                  getNodePathByShortPath(g_headPtr, short_path)) - 4; // pos用于确定字符串写入的起始位置
 			pos += sprintf(lrcpath + pos, "%s", ".lrc");
-			loadIrcList(lrcpath);
+			// 到此，lrcpath应存储着一个和音乐文件同名的、只有后缀名改为".lrc"的绝对路径（长路径而非短路径）
+			loadIrcList(lrcpath); // 利用这个路径加载歌词文件
 
 			return 0; // 如果打开音乐成功，无论加载歌词成功与否，都要返回0。歌词加载成功与否，可以通过检查歌词链表是否为空实现
 		}

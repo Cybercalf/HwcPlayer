@@ -30,7 +30,6 @@ void appendLrcNode(Lrc lrc);
 // 参数：
 // filename:对应歌词文件的文件名（绝对路径）
 // 成功返回0，不成功返回非0
-// 请注意，一个.mp3文件对应的歌词文件名应以.mp3.lrc为后缀
 int loadIrcList(const char* filename);
 
 // 清空歌词链表
